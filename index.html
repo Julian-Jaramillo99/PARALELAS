@@ -405,7 +405,7 @@
     .hero-img-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 200px 200px;
+      grid-auto-rows: 200px;
       gap: 1rem;
     }
 
@@ -439,7 +439,8 @@
       box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
     }
 
-    .hero-img-card:nth-child(1) {
+    .hero-img-card:nth-child(1),
+    .hero-img-card:nth-child(2) {
       grid-row: span 2;
     }
 
@@ -1428,51 +1429,80 @@
       <div class="package-card">
         <div class="package-badge" id="p1-badge">Básico</div>
         <div class="package-name" id="p1-name">Paralelas Origen</div>
-        <div class="package-price" id="p1-price">$450K</div>
+        <div class="package-price" id="p1-price">$400K</div>
         <div class="package-period" id="p1-period">/mes</div>
-        <p class="package-tagline" id="p1-tag">Donde se traza la estrategia. Para marcas que necesitan orden y una línea
-          clara.</p>
+        <p class="package-tagline" id="p1-tag">Para empezar con orden y contenido básico.</p>
         <ul class="package-features" id="p1-list">
-          <li>Planeación de contenido mensual</li>
-          <li>Parrilla de contenido (12 piezas)</li>
-          <li>Propuesta de formatos</li>
+          <li>Planeación de 8 piezas de contenido</li>
+          <li>Elaboración de parrilla de contenido con: (copys, objetivo, idea central, fecha de publicación y hashtags)
+          </li>
+          <li>Propuesta de formatos (reels, carruseles, historias)</li>
           <li>Calendario de publicación</li>
+          <li>1 jornada de grabación (30 minutos)</li>
+          <li>Edición de hasta 4 videos</li>
         </ul>
+        <div class="package-includes">
+          🔒 Incluye
+        </div>
+        <ul class="package-features">
+          <li>1 corrección en parrilla</li>
+          <li>2 correcciones por video</li>
+        </ul>
+        <p class="package-tagline" id="p1-tag">Ideal para quienes quieren iniciar con contenido sin complicarse.</p>
         <a href="#contacto" class="btn-package" id="p1-btn">Empezar →</a>
       </div>
       <div class="package-card featured">
         <div class="package-badge" id="p2-badge">⭐ Más Popular</div>
         <div class="package-name" id="p2-name">Paralelas Impulso</div>
-        <div class="package-price" id="p2-price">$900K</div>
+        <div class="package-price" id="p2-price">$600K</div>
         <div class="package-period" id="p2-period">/mes</div>
-        <p class="package-tagline" id="p2-tag">Contenido en acción. Para marcas que quieren verse profesionales y
-          moverse.</p>
+        <p class="package-tagline" id="p2-tag">Para empezar a crear contenido constante.</p>
         <ul class="package-features" id="p2-list">
-          <li>Planeación de contenido mensual</li>
-          <li>1 jornada de grabación (2 horas)</li>
+          <li>Planeación de 12 contenidos</li>
+          <li>Elaboración de parrilla de contenido con: (copys, objetivo, idea central, fecha de publicación y hashtags)
+          </li>
+          <li>1 jornada de grabación (1 horas)</li>
           <li>Grabación de contenido</li>
-          <li>Edición de hasta 8 videos</li>
-          <li>Videos optimizados para redes</li>
+          <li>Edición de hasta 7 videos + 1 post</li>
+          <li>Manejo de 1 red social (Instagram o TikTok)</li>
         </ul>
+        <div class="package-includes">
+          🔒 Incluye
+        </div>
+        <ul class="package-features">
+          <li>2 correcciones por video</li>
+        </ul>
+        <p class="package-tagline" id="p1-tag">Para marcas que quieren moverse y empezar a verse activas en redes.</p>
         <a href="#contacto" class="btn-package" id="p2-btn">Empezar →</a>
       </div>
       <div class="package-card">
         <div class="package-badge" id="p3-badge">Completo</div>
         <div class="package-name" id="p3-name">Paralelas Control</div>
-        <div class="package-price" id="p3-price">$1.4M</div>
+        <div class="package-price" id="p3-price">$950K</div>
         <div class="package-period" id="p3-period">/mes</div>
-        <p class="package-tagline" id="p3-tag">Presencia constante y bien ejecutada. Para marcas que delegan y se
-          enfocan en vender.</p>
+        <p class="package-tagline" id="p3-tag">Para mantener presencia y delegar contenido.</p>
         <ul class="package-features" id="p3-list">
-          <li>Planeación de contenido mensual</li>
-          <li>1 jornada de grabación (3 horas)</li>
-          <li>Edición de hasta 12 videos</li>
+          <li>Planeación de 16 contenidos</li>
+          <li>Elaboración de parrilla de contenido con: (copys, objetivo, idea central, fecha de publicación y hashtags)
+          </li>
+          <li>1 jornada de grabación (2 horas)</li>
+          <li>Grabación de contenido</li>
+          <li>Edición de hasta 11 videos + 5 post</li>
           <li>Redacción de copys</li>
           <li>Programación y publicación</li>
-          <li>Manejo de 1 red social</li>
-          <li>Reporte mensual básico</li>
+          <li>Manejo de Instagram, TikTok y Facebook</li>
+          <li>Envío de informe mensual con sugerencias</li>
         </ul>
-        <a href="#contacto" class="btn-package" id="p3-btn">Empezar →</a>
+        <div class="package-includes">
+          🔒 Incluye
+        </div>
+        <ul class="package-features">
+          <li>2 correcciones por video</li>
+          <li>1 correccion en parrilla</li>
+        </ul>
+        <p class="package-tagline" id="p1-tag">Para emprendedores que quieren enfocarse en vender y dejar sus redes en
+          manos de un studio.</p>
+        <a href="" class="btn-package" id="p3-btn">Empezar →</a>
       </div>
     </div>
   </section>
