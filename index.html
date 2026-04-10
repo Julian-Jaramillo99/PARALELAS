@@ -195,12 +195,10 @@
 
     /* HERO */
     .hero {
-      min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 4rem;
-      padding: 8rem 3rem 4rem;
+      grid-template-columns: 45% 55%;
+      min-height: 100vh;
+      background: #F5EFE8;
       position: relative;
       overflow: hidden;
     }
@@ -258,7 +256,8 @@
 
     .hero-left {
       position: relative;
-      z-index: 1;
+      z-index: 2;
+      max-width: 600px;
     }
 
     .hero-badge {
@@ -396,69 +395,110 @@
       transform: translateY(-3px);
     }
 
-    /* HERO RIGHT */
-    .hero-right {
+    /* TEXTO */
+    .hero-l {
+      display: flex;
+      align-items: center;
+      padding: 4rem;
+      z-index: 2;
+    }
+
+    /* CONTENEDOR VIDEO */
+    .hero-r {
       position: relative;
-      z-index: 1;
+      overflow: hidden;
+      height: 100%;
+      /* 🔥 clave */
+      min-height: 90vh;
     }
 
-    .hero-img-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-auto-rows: 200px;
-      gap: 1rem;
+    /* VIDEO FULL */
+    .hero-photo {
+      position: absolute;
+      inset: 0;
     }
 
-    .hero-img-card video {
+    .hero-photo video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
-      border-radius: 16px;
-      transition: transform 0.4s ease;
+
+      animation: cinematicMove 18s ease-in-out infinite alternate;
+      transform-origin: center;
+
+      filter: brightness(0.9) contrast(1.1) saturate(1.15);
     }
 
-    .hero-img-card::after {
+    @keyframes cinematicMove {
+      0% {
+        transform: scale(1) translate(0px, 0px);
+      }
+
+      50% {
+        transform: scale(1.05) translate(-5px, -3px);
+      }
+
+      100% {
+        transform: scale(1.1) translate(-10px, -6px);
+      }
+    }
+
+    /* DEGRADADO IZQUIERDO */
+    .hero-overlay {
+      display: none;
+    }
+
+    .hero-photo::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 60%, rgba(192, 24, 42, 0.25));
-      border-radius: 16px;
+
+      background: radial-gradient(circle at center,
+          transparent 55%,
+          rgba(0, 0, 0, 0.35) 100%);
+
+      pointer-events: none;
     }
 
-    .hero-img-card {
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-      transition: transform 0.4s, box-shadow 0.4s;
-    }
+    .hero-photo::before {
+      content: "";
+      position: absolute;
+      inset: 0;
 
-    .hero-img-card:hover {
-      transform: scale(1.08) rotate(-1deg);
-      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
-    }
+      background: radial-gradient(circle at 70% 50%,
+          rgba(255, 255, 255, 0.08),
+          transparent 60%);
 
-    .hero-img-card:nth-child(1),
-    .hero-img-card:nth-child(2) {
-      grid-row: span 2;
+      pointer-events: none;
     }
 
     .hero-float-badge {
       position: absolute;
-      bottom: -1rem;
-      left: -1.5rem;
-      background: var(--orange);
-      color: white;
-      padding: 0.65rem 1.2rem;
+      bottom: 1.5rem;
+      /* 🔥 pegado abajo */
+      left: 50%;
+      /* 🔥 centrado */
+      transform: translateX(-50%);
+      /* 🔥 centrado perfecto */
+
+      background: #C0182A;
+      color: #fff;
+
+      padding: 0.7rem 1.4rem;
       border-radius: 12px;
-      font-size: 0.78rem;
+
+      font-size: 0.75rem;
       font-weight: 700;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      box-shadow: 0 8px 24px rgba(245, 136, 31, 0.4);
-      animation: floatY 6s ease-in-out infinite;
-      z-index: 2;
+
+      box-shadow: 0 10px 30px rgba(192, 24, 42, 0.35);
+
+      z-index: 5;
+
+      animation: floatY 5s ease-in-out infinite;
     }
 
     /* MARQUEE */
@@ -927,146 +967,129 @@
       color: white;
     }
 
-    /* TESTIMONIALS */
-    .testimonials {
-      background: var(--cream);
+    /* PORTFOLIO CAROUSEL */
+    .carousel-outer {
+      width: 100%;
+      overflow: hidden;
+      margin-top: 3rem;
+      padding: 1rem 0;
+      position: relative;
     }
 
-    .testimonials-header {
-      text-align: center;
-      margin-bottom: 3.5rem;
+    .carousel-outer::before,
+    .carousel-outer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
     }
 
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .carousel-outer::before {
+      left: 0;
+      background: linear-gradient(to right, var(--cream), transparent);
+    }
+
+    .carousel-outer::after {
+      right: 0;
+      background: linear-gradient(to left, var(--cream), transparent);
+    }
+
+    .carousel-track {
+      display: flex;
       gap: 1.4rem;
+      animation: carouselScroll 32s linear infinite;
+      width: max-content;
     }
 
-    .testi-card {
-      background: white;
-      border-radius: 20px;
-      padding: 2rem;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      transition: transform 0.4s, box-shadow 0.4s;
+    .carousel-track:hover {
+      animation-play-state: paused;
     }
 
-    .testi-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.1);
+    @keyframes carouselScroll {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
     }
 
-    .testi-quote {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      color: var(--orange);
-      line-height: 0.8;
-      margin-bottom: 0.7rem;
-    }
-
-    .testi-text {
-      font-size: 0.87rem;
-      line-height: 1.7;
-      color: rgba(26, 10, 13, 0.68);
-      margin-bottom: 1.3rem;
-      font-style: italic;
-    }
-
-    .testi-stars {
-      display: flex;
-      gap: 2px;
-      margin-bottom: 0.9rem;
-      color: var(--orange);
-      font-size: 0.88rem;
-    }
-
-    .testi-client {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .testi-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--crimson), var(--orange));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: 700;
-      font-size: 0.88rem;
+    .carousel-item {
       flex-shrink: 0;
     }
 
-    .testi-client-name {
-      font-weight: 700;
-      font-size: 0.83rem;
-      color: var(--crimson);
+    .carousel-card {
+      width: 260px;
+      height: 320px;
+      border-radius: 22px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.4s, box-shadow 0.4s;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
     }
 
-    .testi-client-brand {
-      font-size: 0.73rem;
-      color: rgba(26, 10, 13, 0.48);
+    .carousel-card:hover {
+      transform: scale(1.05) translateY(-8px);
+      box-shadow: 0 24px 60px rgba(192, 24, 42, 0.3);
     }
 
-    /* RATES */
-    .rates {
-      background: var(--dark);
-      color: var(--white);
-    }
-
-    .rates-header {
+    .cc-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      padding: 2rem;
       text-align: center;
-      margin-bottom: 3rem;
+      background: rgba(0, 0, 0, 0.15);
     }
 
-    .rates .section-title {
-      color: var(--cream);
+    .cc-icon {
+      font-size: 3rem;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+      animation: iconFloat 4s ease-in-out infinite;
     }
 
-    .rates .section-desc {
-      color: rgba(245, 240, 232, 0.58);
-      margin: 0.6rem auto 0;
+    @keyframes iconFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
     }
 
-    .rates-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.2rem;
-      margin-top: 2.5rem;
-    }
-
-    .rate-item {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 1.7rem 1.4rem;
-      text-align: center;
-      transition: all 0.3s;
-    }
-
-    .rate-item:hover {
-      background: rgba(245, 136, 31, 0.1);
-      border-color: var(--orange);
-      transform: translateY(-5px);
-    }
-
-    .rate-service {
-      font-size: 0.78rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: rgba(245, 240, 232, 0.58);
-      margin-bottom: 0.7rem;
-    }
-
-    .rate-price {
+    .cc-title {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.1rem;
-      color: var(--orange);
-      line-height: 1;
+      font-size: 1.6rem;
+      color: white;
+      letter-spacing: 0.08em;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .cc-sub {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.82);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .carousel-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 60%);
+      pointer-events: none;
     }
 
     /* CONTACT */
@@ -1217,6 +1240,17 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-video video {
+        width: 100%;
+        height: 60vh;
+      }
+    }
   </style>
 </head>
 
@@ -1268,34 +1302,25 @@
         <a href="#contacto" class="btn-secondary" id="hero-btn2">Hablemos →</a>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="hero-img-grid">
 
-        <!-- VIDEO 1 (grande) -->
-        <div class="hero-img-card">
-          <video autoplay muted loop playsinline>
-            <source src="videos/michelle.mp4" type="video/mp4">
-          </video>
-        </div>
+    <div class="hero-r">
 
-        <!-- VIDEO 2 -->
-        <div class="hero-img-card">
-          <video autoplay muted loop playsinline>
-            <source src="videos/laura.mp4" type="video/mp4">
-          </video>
-        </div>
-
-        <!-- VIDEO 3 -->
-        <div class="hero-img-card">
-          <video autoplay muted loop playsinline>
-            <source src="videos/video 1.mp4" type="video/mp4">
-          </video>
-        </div>
-
+      <div class="hero-photo">
+        <video autoplay muted loop playsinline>
+          <source src="videos/video 1.mp4" type="video/mp4">
+        </video>
       </div>
-      <div class="hero-float-badge" id="hero-float">✦ Ideas en Acción</div>
+
+      <div class="hero-overlay"></div>
+
     </div>
-    <div class="hero-bg-text" aria-hidden="true">PARALELAS</div>
+
+  </section>
+
+  </div>
+  <div class="hero-float-badge" id="hero-float">✦ Ideas en Acción</div>
+  </div>
+  <div class="hero-bg-text" aria-hidden="true">PARALELAS</div>
   </section>
 
   <!-- MARQUEE -->
@@ -1507,52 +1532,168 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="testimonials">
-    <div class="testimonials-header">
-      <p class="section-label" id="testi-label">— Testimonios</p>
-      <h2 class="section-title" id="testi-title">ELLOS LO<br>DICEN, NO YO</h2>
+  <!-- PORTFOLIO CAROUSEL -->
+  <section class="testimonials" id="portafolio" style="padding: 6rem 0; overflow:hidden;">
+    <div class="testimonials-header" style="padding: 0 3rem;">
+      <p class="section-label">— Portafolio</p>
+      <h2 class="section-title">NUESTRO<br>TRABAJO</h2>
+      <p style="font-size:0.95rem;color:rgba(26,10,13,0.55);margin-top:0.5rem;">Contenido que conecta, impacta y
+        convierte ✦</p>
     </div>
-    <div class="testimonials-grid">
-      <div class="testi-card">
-        <div class="testi-quote">"</div>
-        <p class="testi-text" id="t1-text">Trabajar con Paralelas fue un antes y un después para nuestra marca. Sus
-          videos lograron que llegáramos a más personas y aumentáramos nuestra visibilidad en redes.</p>
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-client">
-          <div class="testi-avatar">V</div>
-          <div>
-            <div class="testi-client-name" id="t1-name">Cliente Vibras</div>
-            <div class="testi-client-brand" id="t1-brand">Tecnología</div>
+
+    <div class="carousel-outer">
+      <div class="carousel-track" id="carouselTrack">
+        <!-- Las tarjetas se duplican para el loop infinito -->
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #C0182A 0%, #8B0F1E 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">🎬</div>
+              <div class="cc-title">Reels & TikTok</div>
+              <div class="cc-sub">Contenido viral para redes</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #F5881F 0%, #e06b00 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">📸</div>
+              <div class="cc-title">Fotografía</div>
+              <div class="cc-sub">Visual auténtico de marca</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #1A0A0D 0%, #3a1520 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">✨</div>
+              <div class="cc-title">UGC Content</div>
+              <div class="cc-sub">Creadores de contenido reales</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #A8C8E8 0%, #5a9ec8 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">🎯</div>
+              <div class="cc-title">Estrategia</div>
+              <div class="cc-sub">Parrillas con propósito</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #C0182A 0%, #F5881F 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">🛍️</div>
+              <div class="cc-title">E-commerce</div>
+              <div class="cc-sub">Productos que enamoran</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #2d0a10 0%, #C0182A 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">💄</div>
+              <div class="cc-title">Beauty & Moda</div>
+              <div class="cc-sub">Estética que vende</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #F5881F 0%, #C0182A 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">🏪</div>
+              <div class="cc-title">Locales & Cafés</div>
+              <div class="cc-sub">El alma del negocio</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #1A0A0D 0%, #F5881F 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">🌿</div>
+              <div class="cc-title">Wellness</div>
+              <div class="cc-sub">Bienestar que se nota</div>
+            </div>
+          </div>
+        </div>
+        <!-- Duplicados para el loop infinito -->
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #C0182A 0%, #8B0F1E 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">🎬</div>
+              <div class="cc-title">Reels & TikTok</div>
+              <div class="cc-sub">Contenido viral para redes</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #F5881F 0%, #e06b00 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">📸</div>
+              <div class="cc-title">Fotografía</div>
+              <div class="cc-sub">Visual auténtico de marca</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #1A0A0D 0%, #3a1520 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">✨</div>
+              <div class="cc-title">UGC Content</div>
+              <div class="cc-sub">Creadores de contenido reales</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #A8C8E8 0%, #5a9ec8 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">🎯</div>
+              <div class="cc-title">Estrategia</div>
+              <div class="cc-sub">Parrillas con propósito</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #C0182A 0%, #F5881F 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">🛍️</div>
+              <div class="cc-title">E-commerce</div>
+              <div class="cc-sub">Productos que enamoran</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #2d0a10 0%, #C0182A 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">💄</div>
+              <div class="cc-title">Beauty & Moda</div>
+              <div class="cc-sub">Estética que vende</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #F5881F 0%, #C0182A 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">🏪</div>
+              <div class="cc-title">Locales & Cafés</div>
+              <div class="cc-sub">El alma del negocio</div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="carousel-card" style="background: linear-gradient(135deg, #1A0A0D 0%, #F5881F 100%);">
+            <div class="cc-inner">
+              <div class="cc-icon">🌿</div>
+              <div class="cc-title">Wellness</div>
+              <div class="cc-sub">Bienestar que se nota</div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="testi-card">
-        <div class="testi-quote">"</div>
-        <p class="testi-text" id="t2-text">Me encantó su enfoque creativo y auténtico. Cada contenido que crearon generó
-          una gran conexión con nuestra audiencia y un engagement increíble.</p>
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-client">
-          <div class="testi-avatar">B</div>
-          <div>
-            <div class="testi-client-name" id="t2-name">Cliente Borcelle</div>
-            <div class="testi-client-brand" id="t2-brand">Moda</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-quote">"</div>
-        <p class="testi-text" id="t3-text">Colaborar con Paralelas es un placer. Hacen que todo el proceso sea fácil,
-          dinámico y con resultados que superan expectativas. ¡100% recomendadas!</p>
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-client">
-          <div class="testi-avatar">E</div>
-          <div>
-            <div class="testi-client-name" id="t3-name">Cliente Ensigna</div>
-            <div class="testi-client-brand" id="t3-brand">Negocios</div>
-          </div>
-        </div>
-      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:3rem;padding:0 3rem;">
+      <a href="#contacto" class="btn-primary" style="display:inline-flex;">✦ Trabajemos Juntas</a>
     </div>
   </section>
 
