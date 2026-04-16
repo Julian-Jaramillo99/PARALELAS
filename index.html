@@ -5,9 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paralelas Studio | UGC & Contenido para Marcas</title>
+  <link rel="icon" type="image/png" href="imagenes/Logo.png">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap"
     rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
   <style>
     :root {
       --crimson: #C0182A;
@@ -67,6 +69,17 @@
       color: var(--crimson);
       font-weight: 700;
       letter-spacing: 0.05em;
+    }
+
+    .nav-logo-img {
+      height: 65px;
+      width: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-logo:hover .nav-logo-img {
+      transform: scale(1.06);
     }
 
     .nav-links {
@@ -408,7 +421,6 @@
       position: relative;
       overflow: hidden;
       height: 100%;
-      /* 🔥 clave */
       min-height: 90vh;
     }
 
@@ -416,6 +428,7 @@
     .hero-photo {
       position: absolute;
       inset: 0;
+      z-index: 1;
     }
 
     .hero-photo video {
@@ -424,11 +437,9 @@
       object-fit: cover;
       object-position: center;
       display: block;
-
-      animation: cinematicMove 18s ease-in-out infinite alternate;
+      animation: cinematicMove 20s ease-in-out infinite alternate;
       transform-origin: center;
-
-      filter: brightness(0.9) contrast(1.1) saturate(1.15);
+      filter: brightness(0.9) contrast(1.05);
     }
 
     @keyframes cinematicMove {
@@ -437,41 +448,57 @@
       }
 
       50% {
-        transform: scale(1.05) translate(-5px, -3px);
+        transform: scale(1.07) translate(-10px, -5px);
       }
 
       100% {
-        transform: scale(1.1) translate(-10px, -6px);
+        transform: scale(1.15) translate(-15px, -8px);
       }
     }
 
-    /* DEGRADADO IZQUIERDO */
+    /* DEGRADADO PROFESIONAL Y ANIMADO */
     .hero-overlay {
-      display: none;
-    }
-
-    .hero-photo::after {
-      content: "";
       position: absolute;
       inset: 0;
-
-      background: radial-gradient(circle at center,
-          transparent 55%,
-          rgba(0, 0, 0, 0.35) 100%);
-
+      z-index: 2;
       pointer-events: none;
-    }
-
-    .hero-photo::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-
-      background: radial-gradient(circle at 70% 50%,
-          rgba(255, 255, 255, 0.08),
+      /* Degradado principal que funde con el contenido de la izquierda */
+      background: linear-gradient(to right,
+          var(--cream) 0%,
+          rgba(245, 240, 232, 0.9) 15%,
+          rgba(245, 240, 232, 0.4) 35%,
           transparent 60%);
+    }
 
-      pointer-events: none;
+    .hero-overlay::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 50%,
+          rgba(192, 24, 42, 0.08),
+          transparent 50%);
+      animation: heroGlow 8s ease-in-out infinite alternate;
+    }
+
+    .hero-overlay::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+          var(--cream) 0%,
+          transparent 15%);
+    }
+
+    @keyframes heroGlow {
+      0% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+
+      100% {
+        opacity: 0.7;
+        transform: scale(1.2);
+      }
     }
 
     .hero-float-badge {
@@ -635,10 +662,12 @@
 
     .about-photo-stack {
       position: relative;
-      height: 430px;
+      height: 650px;
+      perspective: 1000px;
     }
 
-    .photo-card img {
+    .photo-card img,
+    .photo-card video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -647,7 +676,8 @@
       transition: transform 0.4s ease;
     }
 
-    .photo-card:hover img {
+    .photo-card:hover img,
+    .photo-card:hover video {
       transform: scale(1.08);
     }
 
@@ -672,22 +702,46 @@
     }
 
     .photo-card:nth-child(1) {
-      width: 255px;
-      height: 310px;
+      width: 340px;
+      height: 480px;
       top: 0;
-      left: 20px;
-      transform: rotate(-3deg);
+      left: 30px;
       z-index: 1;
+      animation: floating-1 8s ease-in-out infinite;
     }
 
     .photo-card:nth-child(2) {
-      width: 235px;
-      height: 280px;
-      top: 60px;
-      right: 0;
-      transform: rotate(4deg);
+      width: 310px;
+      height: 440px;
+      top: 120px;
+      right: -20px;
       z-index: 2;
-      border: 3px solid var(--orange);
+      border: 4px solid var(--orange);
+      animation: floating-2 7s ease-in-out infinite;
+    }
+
+    @keyframes floating-1 {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-5deg);
+      }
+
+      50% {
+        transform: translateY(-25px) rotate(-3deg);
+      }
+    }
+
+    @keyframes floating-2 {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(6deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(4deg);
+      }
     }
 
     /* SERVICES */
@@ -1000,13 +1054,11 @@
     .carousel-track {
       display: flex;
       gap: 1.4rem;
-      animation: carouselScroll 32s linear infinite;
+      animation: carouselScroll 50s linear infinite;
       width: max-content;
     }
 
-    .carousel-track:hover {
-      animation-play-state: paused;
-    }
+    /* Continuous motion without stopping on hover */
 
     @keyframes carouselScroll {
       0% {
@@ -1048,7 +1100,18 @@
       gap: 0.8rem;
       padding: 2rem;
       text-align: center;
-      background: rgba(0, 0, 0, 0.15);
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 2;
+    }
+
+    .carousel-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
     }
 
     .cc-icon {
@@ -1183,17 +1246,232 @@
       transform: scale(1.05);
     }
 
+    /* 3D THEEE.JS SCENES */
+    .camera-3d-scene {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      z-index: 0;
+      pointer-events: none;
+      transition: opacity 1.5s ease;
+    }
+
+    .camera-left {
+      left: -50px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .camera-right {
+      right: -50px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    @media (max-width: 1400px) {
+      .camera-3d-scene {
+        width: 400px;
+        height: 400px;
+      }
+
+      .camera-left {
+        left: -80px;
+      }
+
+      .camera-right {
+        right: -80px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .camera-3d-scene {
+        width: 250px;
+        height: 250px;
+        opacity: 0.5;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .camera-3d-scene {
+        width: 180px;
+        height: 180px;
+        opacity: 0.3;
+      }
+
+      .camera-left {
+        left: -100px;
+      }
+
+      .camera-right {
+        right: -100px;
+      }
+    }
+
     /* FOOTER */
     footer {
       background: #0D0508;
       color: rgba(255, 255, 255, 0.45);
       text-align: center;
-      padding: 1.8rem;
+      padding: 3rem 1.8rem;
       font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .footer-logo-img {
+      height: 100px;
+      width: auto;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .footer-logo-img:hover {
+      filter: grayscale(0) brightness(1);
     }
 
     footer span {
       color: var(--orange);
+    }
+
+    /* RATES SECTION - REDESIGN */
+    .rates {
+      background: #0D0508;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      padding: 8rem 3rem;
+    }
+
+    .rates::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 40%;
+      height: 40%;
+      background: radial-gradient(circle, rgba(192, 24, 42, 0.15), transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+    }
+
+    .rates-header {
+      text-align: center;
+      margin-bottom: 5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .rates .section-title {
+      color: var(--cream);
+    }
+
+    .rates-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .rate-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 2.5rem 1.8rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .rate-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(192, 24, 42, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .rate-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--orange);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .rate-item:hover::before {
+      opacity: 1;
+    }
+
+    .rate-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: rgba(245, 136, 31, 0.1);
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: transform 0.5s ease;
+    }
+
+    .rate-item:hover .rate-icon {
+      transform: rotateY(360deg);
+      background: rgba(245, 136, 31, 0.2);
+    }
+
+    .rate-service {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 0.5rem;
+    }
+
+    .rate-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      color: var(--orange);
+      line-height: 1;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* SCROLL REVEAL SYSTEM */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.15s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.3s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.45s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: 0.6s;
     }
 
     /* RESPONSIVE */
@@ -1215,8 +1493,10 @@
         padding: 7rem 1.4rem 3rem;
       }
 
-      .hero-right {
-        display: none;
+      .hero-r {
+        display: block;
+        width: 100%;
+        margin-top: 2rem;
       }
 
       .about-inner {
@@ -1224,7 +1504,10 @@
       }
 
       .about-photo-stack {
-        display: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 2rem;
       }
 
       .packages-grid,
@@ -1242,13 +1525,20 @@
     }
 
     @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
       .hero-video video {
         width: 100%;
         height: 60vh;
+      }
+
+      /* Carousel Mobile Restoration */
+      .carousel-card {
+        width: 260px !important;
+        height: 320px !important;
+      }
+
+      .carousel-outer::before,
+      .carousel-outer::after {
+        width: 120px !important;
       }
     }
   </style>
@@ -1259,15 +1549,7 @@
   <!-- NAV -->
   <nav>
     <a href="#" class="nav-logo">
-      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
-        <rect x="30" y="8" width="8" height="8" fill="#F5881F" />
-        <rect x="40" y="8" width="8" height="8" fill="#C0182A" />
-        <rect x="50" y="8" width="8" height="8" fill="#A8C8E8" />
-        <text x="26" y="60" font-family="serif" font-size="46" font-weight="900" fill="#C0182A">P</text>
-        <path d="M14 42 Q40 30 68 38" stroke="#F5881F" stroke-width="3.5" fill="none" stroke-linecap="round" />
-        <path d="M11 49 Q40 37 71 45" stroke="#A8C8E8" stroke-width="3" fill="none" stroke-linecap="round" />
-      </svg>
-      <span class="nav-brand">PARALELAS</span>
+      <img src="imagenes/Logo.png" alt="Paralelas Studio Logo" class="nav-logo-img">
     </a>
     <ul class="nav-links">
       <li><a href="#nosotras" id="nav-about">Nosotras</a></li>
@@ -1289,15 +1571,24 @@
     <div class="blob"
       style="width:400px;height:400px;background:var(--orange);bottom:-60px;right:-100px;animation-delay:-6s;"></div>
     <div class="hero-left">
-      <div class="hero-badge" id="hero-badge">✦ Portafolio UGC 2024</div>
-      <h1 class="hero-title">
+      <div class="hero-badge reveal" id="hero-badge">✦ Portafolio UGC 2024</div>
+      <h1 class="hero-title reveal reveal-delay-1">
         <span id="hero-title1">IDEAS QUE</span><br>
         <span class="line2" id="hero-title2">INSPIRAN</span>
       </h1>
-      <p class="hero-subtitle" id="hero-subtitle">Paralelas Studio</p>
-      <p class="hero-desc" id="hero-desc">Somos Laura y Michelle, hermanas gemelas y fundadoras de Paralelas. Creamos
-        contenido desde la conexión, la intención y el entendimiento profundo de cada marca.</p>
-      <div class="hero-btns">
+      <p class="hero-subtitle reveal reveal-delay-2" id="hero-subtitle">Paralelas Studio</p>
+      <div class="reveal reveal-delay-3">
+        <p class="hero-desc" id="hero-desc">Somos PARALELAS Studio, un estudio creativo especializado en planear, crear
+          y
+          gestionar contenido para marcas que saben que estar presentes en digital importa, pero no siempre tienen el
+          tiempo
+          para hacerlo bien. </p>
+        <p class="hero-desc" id="hero-desc2">Organizamos tus ideas, estructuramos tu comunicación y producimos contenido
+          alineado con la esencia de tu negocio para que tu marca se vea constante, profesional y clara en redes
+          sociales.
+        </p>
+      </div>
+      <div class="hero-btns reveal reveal-delay-4">
         <a href="#paquetes" class="btn-primary" id="hero-btn1">✦ Ver Paquetes</a>
         <a href="#contacto" class="btn-secondary" id="hero-btn2">Hablemos →</a>
       </div>
@@ -1306,7 +1597,7 @@
     <div class="hero-r">
 
       <div class="hero-photo">
-        <video autoplay muted loop playsinline>
+        <video autoplay muted loop playsinline webkit-playsinline preload="auto">
           <source src="videos/video 1.mp4" type="video/mp4">
         </video>
       </div>
@@ -1337,29 +1628,35 @@
   <section class="about" id="nosotras">
     <div class="about-inner">
       <div>
-        <p class="section-label" id="about-label">01 — Sobre Nosotras</p>
-        <h2 class="section-title" id="about-title">HOLA,<br>SOMOS<br>PARALELAS</h2>
-        <p class="section-desc" id="about-desc1">Somos Laura y Michelle, hermanas gemelas y fundadoras de Paralelas.
-          Creamos contenido desde la conexión, la intención y el entendimiento profundo de cada marca.</p>
-        <p class="section-desc" style="margin-top:1rem;" id="about-desc2">Creemos en el poder del contenido cuando nace
-          de la esencia real de una marca. Ojalá pronto, <em>caminemos en paralelo...</em></p>
+        <div class="reveal">
+          <p class="section-label" id="about-label">01 — Sobre Nosotras</p>
+          <h2 class="section-title" id="about-title">Somos Michelle y Laura,<br>creadoras de PARALELAS Studio.</h2>
+        </div>
+        <p class="section-desc reveal reveal-delay-1" id="about-desc1"></p>
+        <p class="section-desc reveal reveal-delay-1" style="margin-top:1rem;" id="about-desc2">Trabajamos desde la
+          ejecución real del
+          contenido:
+          planeamos, <em>creamos y organizamos lo que tu marca necesita comunicar en redes.</em></p>
+        <p class="section-desc reveal reveal-delay-2" style="margin-top:1rem;" id="about-desc3">Venimos de la
+          experiencia creando contenido
+          para marcas y entendiendo cómo comunicar de forma clara, constante y alineada.</p>
         <div class="about-highlights">
-          <div class="highlight-card">
+          <div class="highlight-card reveal reveal-delay-1">
             <span class="highlight-icon" id="hi1-icon">🎯</span>
             <div class="highlight-title" id="hi1-title">Estrategia</div>
             <div class="highlight-desc" id="hi1-desc">Contenido con intención y objetivos claros</div>
           </div>
-          <div class="highlight-card">
+          <div class="highlight-card reveal reveal-delay-2">
             <span class="highlight-icon" id="hi2-icon">🎬</span>
             <div class="highlight-title" id="hi2-title">Producción</div>
             <div class="highlight-desc" id="hi2-desc">Cámara profesional Osmo Pocket</div>
           </div>
-          <div class="highlight-card">
+          <div class="highlight-card reveal reveal-delay-3">
             <span class="highlight-icon" id="hi3-icon">✨</span>
             <div class="highlight-title" id="hi3-title">Autenticidad</div>
             <div class="highlight-desc" id="hi3-desc">Contenido real que conecta con audiencias</div>
           </div>
-          <div class="highlight-card">
+          <div class="highlight-card reveal reveal-delay-4">
             <span class="highlight-icon" id="hi4-icon">📊</span>
             <div class="highlight-title" id="hi4-title">Resultados</div>
             <div class="highlight-desc" id="hi4-desc">Reportes mensuales con recomendaciones</div>
@@ -1368,14 +1665,18 @@
       </div>
       <div class="about-photo-stack">
 
-        <!-- FOTO 1 -->
+        <!-- VIDEO 1 (LAURA) -->
         <div class="photo-card">
-          <img src="imagenes/1.jpeg" alt="contenido paralelas">
+          <video autoplay muted loop playsinline webkit-playsinline preload="auto">
+            <source src="videos/laura.mp4" type="video/mp4">
+          </video>
         </div>
 
-        <!-- FOTO 2 -->
+        <!-- VIDEO 2 (MICHELLE) -->
         <div class="photo-card">
-          <img src="imagenes/2.jpeg" alt="contenido paralelas">
+          <video autoplay muted loop playsinline webkit-playsinline preload="auto">
+            <source src="videos/michelle.mp4" type="video/mp4">
+          </video>
         </div>
 
       </div>
@@ -1384,12 +1685,12 @@
 
   <!-- SERVICES -->
   <section class="services" id="servicios">
-    <div class="services-header">
+    <div class="services-header reveal">
       <p class="section-label" id="serv-label">02 — Nuestros Servicios</p>
-      <h2 class="section-title" id="serv-title">COSAS LINDAS<br>POR AQUÍ</h2>
+      <h2 class="section-title" id="serv-title">¿Cómo trabajamos tu contenido?</h2>
     </div>
     <div class="services-grid">
-      <div class="service-card">
+      <div class="service-card reveal reveal-delay-1">
         <div class="service-num">01</div>
         <div class="service-icon" style="background:rgba(192,24,42,0.1);">📅</div>
         <div class="service-title" id="s1-title">Planeación de Contenido</div>
@@ -1401,7 +1702,7 @@
           <li>Calendario de publicación por fechas</li>
         </ul>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal reveal-delay-2">
         <div class="service-num">02</div>
         <div class="service-icon" style="background:rgba(245,136,31,0.1);">🎬</div>
         <div class="service-title" id="s2-title">Producción y Grabación</div>
@@ -1414,7 +1715,7 @@
           <li>Grabación de B-roll y detalles</li>
         </ul>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal reveal-delay-3">
         <div class="service-num">03</div>
         <div class="service-icon" style="background:rgba(168,200,232,0.3);">✂️</div>
         <div class="service-title" id="s3-title">Edición Básica</div>
@@ -1427,7 +1728,7 @@
           <li>Música en tendencia</li>
         </ul>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal reveal-delay-4">
         <div class="service-num">04</div>
         <div class="service-icon" style="background:rgba(192,24,42,0.08);">📊</div>
         <div class="service-title" id="s4-title">Social Media Manager</div>
@@ -1444,17 +1745,17 @@
 
   <!-- PACKAGES -->
   <section class="packages" id="paquetes">
-    <div class="packages-header">
+    <div class="packages-header reveal">
       <p class="section-label" id="pkg-label">04 — Nuestros Paquetes</p>
       <h2 class="section-title" id="pkg-title">PRECIOS<br>CLAROS Y JUSTOS</h2>
       <p class="section-desc" style="margin:0.8rem auto 0;" id="pkg-desc">Escoge el plan que mejor se adapte a tu marca
         y comenzamos a caminar en paralelo.</p>
     </div>
     <div class="packages-grid">
-      <div class="package-card">
+      <div class="package-card reveal reveal-delay-1">
         <div class="package-badge" id="p1-badge">Básico</div>
         <div class="package-name" id="p1-name">Paralelas Origen</div>
-        <div class="package-price" id="p1-price">$400K</div>
+        <div class="package-price" id="p1-price">$450K</div>
         <div class="package-period" id="p1-period">/mes</div>
         <p class="package-tagline" id="p1-tag">Para empezar con orden y contenido básico.</p>
         <ul class="package-features" id="p1-list">
@@ -1466,20 +1767,20 @@
           <li>1 jornada de grabación (30 minutos)</li>
           <li>Edición de hasta 4 videos</li>
         </ul>
-        <div class="package-includes">
+        <div class="package-includes" id="p1-incl">
           🔒 Incluye
         </div>
-        <ul class="package-features">
+        <ul class="package-features" id="p1-list-incl">
           <li>1 corrección en parrilla</li>
           <li>2 correcciones por video</li>
         </ul>
-        <p class="package-tagline" id="p1-tag">Ideal para quienes quieren iniciar con contenido sin complicarse.</p>
+        <p class="package-tagline" id="p1-tag2">Ideal para quienes quieren iniciar con contenido sin complicarse.</p>
         <a href="#contacto" class="btn-package" id="p1-btn">Empezar →</a>
       </div>
-      <div class="package-card featured">
+      <div class="package-card featured reveal reveal-delay-2">
         <div class="package-badge" id="p2-badge">⭐ Más Popular</div>
         <div class="package-name" id="p2-name">Paralelas Impulso</div>
-        <div class="package-price" id="p2-price">$600K</div>
+        <div class="package-price" id="p2-price">$650K</div>
         <div class="package-period" id="p2-period">/mes</div>
         <p class="package-tagline" id="p2-tag">Para empezar a crear contenido constante.</p>
         <ul class="package-features" id="p2-list">
@@ -1491,19 +1792,19 @@
           <li>Edición de hasta 7 videos + 1 post</li>
           <li>Manejo de 1 red social (Instagram o TikTok)</li>
         </ul>
-        <div class="package-includes">
+        <div class="package-includes" id="p2-incl">
           🔒 Incluye
         </div>
-        <ul class="package-features">
+        <ul class="package-features" id="p2-list-incl">
           <li>2 correcciones por video</li>
         </ul>
-        <p class="package-tagline" id="p1-tag">Para marcas que quieren moverse y empezar a verse activas en redes.</p>
+        <p class="package-tagline" id="p2-tag2">Para marcas que quieren moverse y empezar a verse activas en redes.</p>
         <a href="#contacto" class="btn-package" id="p2-btn">Empezar →</a>
       </div>
-      <div class="package-card">
+      <div class="package-card reveal reveal-delay-3">
         <div class="package-badge" id="p3-badge">Completo</div>
         <div class="package-name" id="p3-name">Paralelas Control</div>
-        <div class="package-price" id="p3-price">$950K</div>
+        <div class="package-price" id="p3-price">$980K</div>
         <div class="package-period" id="p3-period">/mes</div>
         <p class="package-tagline" id="p3-tag">Para mantener presencia y delegar contenido.</p>
         <ul class="package-features" id="p3-list">
@@ -1518,14 +1819,14 @@
           <li>Manejo de Instagram, TikTok y Facebook</li>
           <li>Envío de informe mensual con sugerencias</li>
         </ul>
-        <div class="package-includes">
+        <div class="package-includes" id="p3-incl">
           🔒 Incluye
         </div>
-        <ul class="package-features">
+        <ul class="package-features" id="p3-list-incl">
           <li>2 correcciones por video</li>
           <li>1 correccion en parrilla</li>
         </ul>
-        <p class="package-tagline" id="p1-tag">Para emprendedores que quieren enfocarse en vender y dejar sus redes en
+        <p class="package-tagline" id="p3-tag2">Para emprendedores que quieren enfocarse en vender y dejar sus redes en
           manos de un studio.</p>
         <a href="" class="btn-package" id="p3-btn">Empezar →</a>
       </div>
@@ -1534,159 +1835,116 @@
 
   <!-- PORTFOLIO CAROUSEL -->
   <section class="testimonials" id="portafolio" style="padding: 6rem 0; overflow:hidden;">
-    <div class="testimonials-header" style="padding: 0 3rem;">
-      <p class="section-label">— Portafolio</p>
-      <h2 class="section-title">NUESTRO<br>TRABAJO</h2>
-      <p style="font-size:0.95rem;color:rgba(26,10,13,0.55);margin-top:0.5rem;">Contenido que conecta, impacta y
+    <div class="testimonials-header reveal" style="padding: 0 3rem; text-align: center;">
+      <p class="section-label" id="portf-label">— Portafolio</p>
+      <h2 class="section-title" id="portf-title">NUESTRO<br>TRABAJO</h2>
+      <p style="font-size:0.95rem;color:rgba(26,10,13,0.55);margin-top:0.5rem;" id="portf-desc">Contenido que conecta,
+        impacta y
         convierte ✦</p>
     </div>
 
     <div class="carousel-outer">
       <div class="carousel-track" id="carouselTrack">
-        <!-- Las tarjetas se duplican para el loop infinito -->
+        <!-- 5 Ítems Únicos con optimización de tamaño (w_300) y extensión mp4 explícita -->
         <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #C0182A 0%, #8B0F1E 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">🎬</div>
-              <div class="cc-title">Reels & TikTok</div>
-              <div class="cc-sub">Contenido viral para redes</div>
-            </div>
+          <div class="carousel-card">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="carousel-video">
+              <source
+                src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/w_300,c_limit/v1776315238/Impression_-_Video_1_kctvvj.mp4"
+                type="video/mp4">
+            </video>
+            <div class="cc-inner"></div>
           </div>
         </div>
         <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #F5881F 0%, #e06b00 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">📸</div>
-              <div class="cc-title">Fotografía</div>
-              <div class="cc-sub">Visual auténtico de marca</div>
-            </div>
+          <div class="carousel-card">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="carousel-video">
+              <source
+                src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/w_300,c_limit/v1776315237/Vlog_-_Travel_Advisor_1_1_kbxxmy.mp4"
+                type="video/mp4">
+            </video>
+            <div class="cc-inner"></div>
           </div>
         </div>
         <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #1A0A0D 0%, #3a1520 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">✨</div>
-              <div class="cc-title">UGC Content</div>
-              <div class="cc-sub">Creadores de contenido reales</div>
-            </div>
+          <div class="carousel-card">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="carousel-video">
+              <source
+                src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/w_300,c_limit/v1776315237/Video_Hotel_Tour_Roma_Italia_1_lp2tgb.mp4"
+                type="video/mp4">
+            </video>
+            <div class="cc-inner"></div>
           </div>
         </div>
         <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #A8C8E8 0%, #5a9ec8 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">🎯</div>
-              <div class="cc-title">Estrategia</div>
-              <div class="cc-sub">Parrillas con propósito</div>
-            </div>
+          <div class="carousel-card">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="carousel-video">
+              <source
+                src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/w_300,c_limit/v1776315237/0414_1_1_gri3la.mp4"
+                type="video/mp4">
+            </video>
+            <div class="cc-inner"></div>
           </div>
         </div>
         <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #C0182A 0%, #F5881F 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">🛍️</div>
-              <div class="cc-title">E-commerce</div>
-              <div class="cc-sub">Productos que enamoran</div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #2d0a10 0%, #C0182A 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">💄</div>
-              <div class="cc-title">Beauty & Moda</div>
-              <div class="cc-sub">Estética que vende</div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #F5881F 0%, #C0182A 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">🏪</div>
-              <div class="cc-title">Locales & Cafés</div>
-              <div class="cc-sub">El alma del negocio</div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #1A0A0D 0%, #F5881F 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">🌿</div>
-              <div class="cc-title">Wellness</div>
-              <div class="cc-sub">Bienestar que se nota</div>
-            </div>
+          <div class="carousel-card">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="carousel-video">
+              <source
+                src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/w_300,c_limit/v1776316972/226b49ac25d24c6ba07f12bed534874d_1_l0ocm6.mp4"
+                type="video/mp4">
+            </video>
+            <div class="cc-inner"></div>
           </div>
         </div>
         <!-- Duplicados para el loop infinito -->
         <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #C0182A 0%, #8B0F1E 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">🎬</div>
-              <div class="cc-title">Reels & TikTok</div>
-              <div class="cc-sub">Contenido viral para redes</div>
-            </div>
+          <div class="carousel-card">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="carousel-video">
+              <source
+                src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/w_300,c_limit/v1776315238/Impression_-_Video_1_kctvvj.mp4"
+                type="video/mp4">
+            </video>
+            <div class="cc-inner"></div>
           </div>
         </div>
         <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #F5881F 0%, #e06b00 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">📸</div>
-              <div class="cc-title">Fotografía</div>
-              <div class="cc-sub">Visual auténtico de marca</div>
-            </div>
+          <div class="carousel-card">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="carousel-video">
+              <source
+                src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/w_300,c_limit/v1776315237/Vlog_-_Travel_Advisor_1_1_kbxxmy.mp4"
+                type="video/mp4">
+            </video>
+            <div class="cc-inner"></div>
           </div>
         </div>
         <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #1A0A0D 0%, #3a1520 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">✨</div>
-              <div class="cc-title">UGC Content</div>
-              <div class="cc-sub">Creadores de contenido reales</div>
-            </div>
+          <div class="carousel-card">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="carousel-video">
+              <source
+                src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/w_300,c_limit/v1776315237/Video_Hotel_Tour_Roma_Italia_1_lp2tgb.mp4"
+                type="video/mp4">
+            </video>
+            <div class="cc-inner"></div>
           </div>
         </div>
         <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #A8C8E8 0%, #5a9ec8 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">🎯</div>
-              <div class="cc-title">Estrategia</div>
-              <div class="cc-sub">Parrillas con propósito</div>
-            </div>
+          <div class="carousel-card">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="carousel-video">
+              <source
+                src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/w_300,c_limit/v1776315237/0414_1_1_gri3la.mp4"
+                type="video/mp4">
+            </video>
+            <div class="cc-inner"></div>
           </div>
         </div>
         <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #C0182A 0%, #F5881F 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">🛍️</div>
-              <div class="cc-title">E-commerce</div>
-              <div class="cc-sub">Productos que enamoran</div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #2d0a10 0%, #C0182A 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">💄</div>
-              <div class="cc-title">Beauty & Moda</div>
-              <div class="cc-sub">Estética que vende</div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #F5881F 0%, #C0182A 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">🏪</div>
-              <div class="cc-title">Locales & Cafés</div>
-              <div class="cc-sub">El alma del negocio</div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-card" style="background: linear-gradient(135deg, #1A0A0D 0%, #F5881F 100%);">
-            <div class="cc-inner">
-              <div class="cc-icon">🌿</div>
-              <div class="cc-title">Wellness</div>
-              <div class="cc-sub">Bienestar que se nota</div>
-            </div>
+          <div class="carousel-card">
+            <video autoplay muted loop playsinline webkit-playsinline preload="auto" class="carousel-video">
+              <source
+                src="https://res.cloudinary.com/dnrkhqi2e/video/upload/q_auto/f_auto/w_300,c_limit/v1776316972/226b49ac25d24c6ba07f12bed534874d_1_l0ocm6.mp4"
+                type="video/mp4">
+            </video>
+            <div class="cc-inner"></div>
           </div>
         </div>
       </div>
@@ -1699,25 +1957,30 @@
 
   <!-- RATES -->
   <section class="rates" id="tarifas">
-    <div class="rates-header">
+    <div class="rates-header reveal">
       <p class="section-label" id="rates-label" style="color:var(--orange);">— Servicios Adicionales</p>
       <h2 class="section-title" id="rates-title">TARIFAS<br>INDIVIDUALES</h2>
-      <p class="section-desc" id="rates-desc">¿Solo necesitas uno de nuestros servicios? También podemos ayudarte.</p>
+      <p class="section-desc" id="rates-desc" style="color: rgba(255,255,255,0.6);">¿Solo necesitas uno de nuestros
+        servicios? También podemos ayudarte.</p>
     </div>
     <div class="rates-grid">
-      <div class="rate-item">
+      <div class="rate-item reveal reveal-delay-1">
+        <div class="rate-icon">📅</div>
         <div class="rate-service" id="r1-name">Parrilla de Contenido</div>
         <div class="rate-price">$450.000</div>
       </div>
-      <div class="rate-item">
+      <div class="rate-item reveal reveal-delay-2">
+        <div class="rate-icon">🎬</div>
         <div class="rate-service" id="r2-name">Grabación por hora</div>
         <div class="rate-price">$300.000</div>
       </div>
-      <div class="rate-item">
+      <div class="rate-item reveal reveal-delay-3">
+        <div class="rate-icon">✂️</div>
         <div class="rate-service" id="r3-name">Edición (1 video)</div>
         <div class="rate-price">$100.000</div>
       </div>
-      <div class="rate-item">
+      <div class="rate-item reveal reveal-delay-4">
+        <div class="rate-icon">📊</div>
         <div class="rate-service" id="r4-name">Manejo 1 Red Social</div>
         <div class="rate-price">$500.000</div>
       </div>
@@ -1726,6 +1989,8 @@
 
   <!-- CONTACT -->
   <section class="contact" id="contacto">
+    <div id="three-l" class="camera-3d-scene camera-left"></div>
+    <div id="three-r" class="camera-3d-scene camera-right"></div>
     <div class="contact-inner">
       <p class="section-label" style="color:rgba(255,255,255,0.6);" id="contact-label">05 — Contacto</p>
       <h2 class="section-title" id="contact-title">TRABAJEMOS<br>JUNTOS</h2>
@@ -1740,6 +2005,8 @@
   </section>
 
   <footer>
+    <img src="imagenes/Logo.png" alt="Paralelas Studio Logo" class="footer-logo-img"
+      onclick="window.scrollTo({top:0, behavior:'smooth'})">
     <p id="footer-text">© 2024 <span>Paralelas Studio</span> — Ideas que Inspiran ✦ Hecho con ❤️ por Laura &amp;
       Michelle</p>
   </footer>
@@ -1749,20 +2016,29 @@
       es: {
         docTitle: 'Paralelas Studio | UGC & Contenido para Marcas',
         'nav-about': 'Nosotras', 'nav-services': 'Servicios', 'nav-packages': 'Paquetes', 'nav-rates': 'Tarifas', 'nav-cta': '¡Trabajemos!',
-        'hero-badge': '✦ Portafolio UGC 2024', 'hero-title1': 'IDEAS QUE', 'hero-title2': 'INSPIRAN',
+        'hero-badge': '✦ Portafolio UGC 2024',
+        'hero-title1': 'IDEAS QUE', 'hero-title2': 'INSPIRAN',
         'hero-subtitle': 'Paralelas Studio',
-        'hero-desc': 'Somos Laura y Michelle, hermanas gemelas y fundadoras de Paralelas. Creamos contenido desde la conexión, la intención y el entendimiento profundo de cada marca.',
+        'hero-desc': 'Somos PARALELAS Studio, un estudio creativo especializado en planear, crear y gestionar contenido para marcas que saben que estar presentes en digital importa, pero no siempre tienen el tiempo para hacerlo bien.',
+        'hero-desc2': 'Organizamos tus ideas, estructuramos tu comunicación y producimos contenido alineado con la esencia de tu negocio para que tu marca se vea constante, profesional y clara en redes sociales.',
         'hero-btn1': '✦ Ver Paquetes', 'hero-btn2': 'Hablemos →', 'hero-card3': 'CONTENIDO', 'hero-float': '✦ Ideas en Acción',
+
         'marquee-text': 'PLANEACIÓN DE CONTENIDO &nbsp;✦&nbsp; PRODUCCIÓN &nbsp;✦&nbsp; EDICIÓN &nbsp;✦&nbsp; SOCIAL MEDIA &nbsp;✦&nbsp; IDEAS QUE INSPIRAN &nbsp;✦&nbsp; PLANEACIÓN DE CONTENIDO &nbsp;✦&nbsp; PRODUCCIÓN &nbsp;✦&nbsp; EDICIÓN &nbsp;✦&nbsp; SOCIAL MEDIA &nbsp;✦&nbsp; IDEAS QUE INSPIRAN &nbsp;✦&nbsp;',
-        'about-label': '01 — Sobre Nosotras', 'about-title': 'HOLA,<br>SOMOS<br>PARALELAS',
-        'about-desc1': 'Somos Laura y Michelle, hermanas gemelas y fundadoras de Paralelas. Creamos contenido desde la conexión, la intención y el entendimiento profundo de cada marca.',
-        'about-desc2': 'Creemos en el poder del contenido cuando nace de la esencia real de una marca. Ojalá pronto, <em>caminemos en paralelo...</em>',
+
+        'about-label': '01 — Sobre Nosotras',
+        'about-title': 'Somos Michelle y Laura,<br>creadoras de PARALELAS Studio.',
+        'about-desc1': '',
+        'about-desc2': 'Trabajamos desde la ejecución real del contenido: planeamos, <em>creamos y organizamos lo que tu marca necesita comunicar en redes.</em>',
+        'about-desc3': 'Venimos de la experiencia creando contenido para marcas y entendiendo cómo comunicar de forma clara, constante y alineada.',
+
         'hi1-title': 'Estrategia', 'hi1-desc': 'Contenido con intención y objetivos claros',
         'hi2-title': 'Producción', 'hi2-desc': 'Cámara profesional Osmo Pocket',
         'hi3-title': 'Autenticidad', 'hi3-desc': 'Contenido real que conecta con audiencias',
         'hi4-title': 'Resultados', 'hi4-desc': 'Reportes mensuales con recomendaciones',
         'photo1-text': 'CONTENIDO QUE CONECTA', 'photo1-sub': 'Laura & Michelle · Fundadoras', 'photo2-text': 'IDEAS EN ACCIÓN',
-        'serv-label': '02 — Nuestros Servicios', 'serv-title': 'COSAS LINDAS<br>POR AQUÍ',
+
+        'serv-label': '02 — Nuestros Servicios',
+        'serv-title': '¿Cómo trabajamos tu contenido?',
         's1-title': 'Planeación de Contenido', 's1-desc': 'Organizamos tu contenido para que publiques con estrategia y constancia.',
         's1-list': ['Parrilla de contenido mensual', 'Propuesta de formatos (reels, carruseles, historias)', 'Calendario de publicación por fechas'],
         's2-title': 'Producción y Grabación', 's2-desc': 'Capturamos contenido auténtico y alineado con tu marca.',
@@ -1771,17 +2047,39 @@
         's3-list': ['Reels, TikTok y Shorts', 'Cortes dinámicos y ritmo', 'Ajustes de color y audio', 'Textos en pantalla y subtítulos', 'Música en tendencia'],
         's4-title': 'Social Media Manager', 's4-desc': 'Nos encargamos de tus redes para que tú te enfoques en tu negocio.',
         's4-list': ['Programación según parrilla', 'Redacción de copys estratégicos', 'Publicación en redes sociales', 'Reporte mensual con recomendaciones'],
-        'pkg-label': '04 — Nuestros Paquetes', 'pkg-title': 'PRECIOS<br>CLAROS Y JUSTOS',
+
+        'pkg-label': '04 — Nuestros Paquetes',
+        'pkg-title': 'PRECIOS<br>CLAROS Y JUSTOS',
         'pkg-desc': 'Escoge el plan que mejor se adapte a tu marca y comenzamos a caminar en paralelo.',
+
         'p1-badge': 'Básico', 'p1-name': 'Paralelas Origen', 'p1-period': '/mes',
-        'p1-tag': 'Donde se traza la estrategia. Para marcas que necesitan orden y una línea clara.',
-        'p1-list': ['Planeación de contenido mensual', 'Parrilla de contenido (12 piezas)', 'Propuesta de formatos', 'Calendario de publicación'], 'p1-btn': 'Empezar →',
+        'p1-tag': 'Para empezar con orden y contenido básico.',
+        'p1-list': ['Planeación de 8 piezas de contenido', 'Elaboración de parrilla de contenido con: (copys, objetivo, idea central, fecha de publicación y hashtags)', 'Propuesta de formatos (reels, carruseles, historias)', 'Calendario de publicación', '1 jornada de grabación (30 minutos)', 'Edición de hasta 4 videos'],
+        'p1-incl': '🔒 Incluye',
+        'p1-list-incl': ['1 corrección en parrilla', '2 correcciones por video'],
+        'p1-tag2': 'Ideal para quienes quieren iniciar con contenido sin complicarse.',
+        'p1-btn': 'Empezar →',
+
         'p2-badge': '⭐ Más Popular', 'p2-name': 'Paralelas Impulso', 'p2-period': '/mes',
-        'p2-tag': 'Contenido en acción. Para marcas que quieren verse profesionales y moverse.',
-        'p2-list': ['Planeación de contenido mensual', '1 jornada de grabación (2 horas)', 'Grabación de contenido', 'Edición de hasta 8 videos', 'Videos optimizados para redes'], 'p2-btn': 'Empezar →',
+        'p2-tag': 'Para empezar a crear contenido constante.',
+        'p2-list': ['Planeación de 12 contenidos', 'Elaboración de parrilla de contenido con: (copys, objetivo, idea central, fecha de publicación y hashtags)', '1 jornada de grabación (1 horas)', 'Grabación de contenido', 'Edición de hasta 7 videos + 1 post', 'Manejo de 1 red social (Instagram o TikTok)'],
+        'p2-incl': '🔒 Incluye',
+        'p2-list-incl': ['2 correcciones por video'],
+        'p2-tag2': 'Para marcas que quieren moverse y empezar a verse activas en redes.',
+        'p2-btn': 'Empezar →',
+
         'p3-badge': 'Completo', 'p3-name': 'Paralelas Control', 'p3-period': '/mes',
-        'p3-tag': 'Presencia constante y bien ejecutada. Para marcas que delegan y se enfocan en vender.',
-        'p3-list': ['Planeación de contenido mensual', '1 jornada de grabación (3 horas)', 'Edición de hasta 12 videos', 'Redacción de copys', 'Programación y publicación', 'Manejo de 1 red social', 'Reporte mensual básico'], 'p3-btn': 'Empezar →',
+        'p3-tag': 'Para mantener presencia y delegar contenido.',
+        'p3-list': ['Planeación de 16 contenidos', 'Elaboración de parrilla de contenido con: (copys, objetivo, idea central, fecha de publicación y hashtags)', '1 jornada de grabación (2 horas)', 'Grabación de contenido', 'Edición de hasta 11 videos + 5 post', 'Redacción de copys', 'Programación y publicación', 'Manejo de Instagram, TikTok y Facebook', 'Envío de informe mensual con sugerencias'],
+        'p3-incl': '🔒 Incluye',
+        'p3-list-incl': ['2 correcciones por video', '1 correccion en parrilla'],
+        'p3-tag2': 'Para emprendedores que quieren enfocarse en vender y dejar sus redes en manos de un studio.',
+        'p3-btn': 'Empezar →',
+
+        'portf-label': '— Portafolio',
+        'portf-title': 'NUESTRO<br>TRABAJO',
+        'portf-desc': 'Contenido que conecta, impacta y convierte ✦',
+
         'testi-label': '— Testimonios', 'testi-title': 'ELLOS LO<br>DICEN, NO YO',
         't1-text': 'Trabajar con Paralelas fue un antes y un después para nuestra marca. Sus videos lograron que llegáramos a más personas y aumentáramos nuestra visibilidad en redes.',
         't1-name': 'Cliente Vibras', 't1-brand': 'Tecnología',
@@ -1789,9 +2087,11 @@
         't2-name': 'Cliente Borcelle', 't2-brand': 'Moda',
         't3-text': 'Colaborar con Paralelas es un placer. Hacen que todo el proceso sea fácil, dinámico y con resultados que superan expectativas. ¡100% recomendadas!',
         't3-name': 'Cliente Ensigna', 't3-brand': 'Negocios',
+
         'rates-label': '— Servicios Adicionales', 'rates-title': 'TARIFAS<br>INDIVIDUALES',
         'rates-desc': '¿Solo necesitas uno de nuestros servicios? También podemos ayudarte.',
         'r1-name': 'Parrilla de Contenido', 'r2-name': 'Grabación por hora', 'r3-name': 'Edición (1 video)', 'r4-name': 'Manejo 1 Red Social',
+
         'contact-label': '05 — Contacto', 'contact-title': 'TRABAJEMOS<br>JUNTOS',
         'contact-tag': 'Marcas en acción ✦', 'contact-cta': '✦ ¡Empecemos Ahora! ✦',
         'footer-text': '© 2024 <span>Paralelas Studio</span> — Ideas que Inspiran ✦ Hecho con ❤️ por Laura &amp; Michelle',
@@ -1799,39 +2099,70 @@
       en: {
         docTitle: 'Paralelas Studio | UGC & Content for Brands',
         'nav-about': 'About Us', 'nav-services': 'Services', 'nav-packages': 'Packages', 'nav-rates': 'Rates', 'nav-cta': "Let's Work!",
-        'hero-badge': '✦ UGC Portfolio 2024', 'hero-title1': 'IDEAS THAT', 'hero-title2': 'INSPIRE',
+        'hero-badge': '✦ UGC Portfolio 2024',
+        'hero-title1': 'IDEAS THAT', 'hero-title2': 'INSPIRE',
         'hero-subtitle': 'Paralelas Studio',
-        'hero-desc': "We are Laura and Michelle, twin sisters and founders of Paralelas. We create content rooted in connection, intention, and a deep understanding of each brand's identity.",
+        'hero-desc': "We are PARALELAS Studio, a creative studio specialized in planning, creating, and managing content for brands that know digital presence matters but don't always have the time to do it effectively.",
+        'hero-desc2': 'We organize your ideas, structure your communication, and produce content aligned with the essence of your business so your brand looks consistent, professional, and clear on social networks.',
         'hero-btn1': '✦ See Packages', 'hero-btn2': "Let's Talk →", 'hero-card3': 'CONTENT', 'hero-float': '✦ Ideas in Action',
+
         'marquee-text': 'CONTENT PLANNING &nbsp;✦&nbsp; PRODUCTION &nbsp;✦&nbsp; EDITING &nbsp;✦&nbsp; SOCIAL MEDIA &nbsp;✦&nbsp; IDEAS THAT INSPIRE &nbsp;✦&nbsp; CONTENT PLANNING &nbsp;✦&nbsp; PRODUCTION &nbsp;✦&nbsp; EDITING &nbsp;✦&nbsp; SOCIAL MEDIA &nbsp;✦&nbsp; IDEAS THAT INSPIRE &nbsp;✦&nbsp;',
-        'about-label': '01 — About Us', 'about-title': 'HI, WE ARE<br>PARALELAS',
-        'about-desc1': "We are Laura and Michelle, twin sisters and founders of Paralelas. We create content rooted in connection, intention, and a deep understanding of each brand's identity.",
-        'about-desc2': 'We believe in the power of content when it is born from the true essence of a brand. Hopefully soon, <em>we walk in parallel...</em>',
+
+        'about-label': '01 — About Us',
+        'about-title': 'We are Michelle and Laura,<br>creators of PARALELAS Studio.',
+        'about-desc1': '',
+        'about-desc2': "We work from the real execution of content: we plan, <em>create, and organize what your brand needs to communicate on social networks.</em>",
+        'about-desc3': "We come from the experience of creating content for brands and understanding how to communicate clearly, consistently, and in total alignment.",
+
         'hi1-title': 'Strategy', 'hi1-desc': 'Content with clear intention and goals',
         'hi2-title': 'Production', 'hi2-desc': 'Professional Osmo Pocket camera',
         'hi3-title': 'Authenticity', 'hi3-desc': 'Real content that connects with audiences',
         'hi4-title': 'Results', 'hi4-desc': 'Monthly reports with recommendations',
         'photo1-text': 'CONTENT THAT CONNECTS', 'photo1-sub': 'Laura & Michelle · Founders', 'photo2-text': 'IDEAS IN ACTION',
-        'serv-label': '02 — Our Services', 'serv-title': 'BEAUTIFUL THINGS<br>RIGHT HERE',
+
+        'serv-label': '02 — Our Services',
+        'serv-title': 'How do we work your content?',
         's1-title': 'Content Planning', 's1-desc': 'We organize your content so you publish with strategy and consistency.',
         's1-list': ['Monthly content grid', 'Format proposals (reels, carousels, stories)', 'Publication calendar by date'],
         's2-title': 'Production & Filming', 's2-desc': 'We capture authentic content aligned with your brand.',
-        's2-list': ['Pre-session planning', 'Vertical videos for social media', 'Professional Osmo Pocket camera', 'Basic on-camera direction', 'B-roll and detail footage'],
+        's2-list': ['Pre-session planning', 'Vertical videos for social networks', 'Professional Osmo Pocket camera', 'Basic on-camera direction', 'B-roll and detail footage'],
         's3-title': 'Basic Editing', 's3-desc': 'We turn recordings into content that connects and retains viewers.',
         's3-list': ['Reels, TikTok & Shorts', 'Dynamic cuts and pacing', 'Basic color and audio adjustments', 'On-screen text and subtitles', 'Trending music'],
-        's4-title': 'Social Media Manager', 's4-desc': 'We manage your social media so you can focus on your business.',
+        's4-title': 'Social Media Manager', 's4-desc': 'We manage your social networks so you can focus on your business.',
         's4-list': ['Scheduled posts per content grid', 'Strategic copy writing', 'Publishing on social networks', 'Monthly report with recommendations'],
-        'pkg-label': '04 — Our Packages', 'pkg-title': 'CLEAR &<br>FAIR PRICES',
+
+        'pkg-label': '04 — Our Packages',
+        'pkg-title': 'CLEAR &<br>FAIR PRICES',
         'pkg-desc': 'Choose the plan that best fits your brand and we will start walking in parallel.',
+
         'p1-badge': 'Basic', 'p1-name': 'Paralelas Origen', 'p1-period': '/month',
-        'p1-tag': 'Where strategy is mapped. For brands that need order and a clear direction.',
-        'p1-list': ['Monthly content planning', 'Content grid (12 pieces)', 'Format proposals', 'Publication calendar'], 'p1-btn': 'Get Started →',
+        'p1-tag': 'To start with order and basic content.',
+        'p1-list': ['Planning of 8 content pieces', 'Content grid creation with: (copy, objective, central idea, posting date, and hashtags)', 'Format proposals (reels, carousels, stories)', 'Publication calendar', '1 filming session (30 minutes)', 'Editing up to 4 videos'],
+        'p1-incl': '🔒 Includes',
+        'p1-list-incl': ['1 grid revision', '2 revisions per video'],
+        'p1-tag2': 'Ideal for those who want to start making content without complications.',
+        'p1-btn': 'Get Started →',
+
         'p2-badge': '⭐ Most Popular', 'p2-name': 'Paralelas Impulso', 'p2-period': '/month',
-        'p2-tag': 'Content in action. For brands that want to look professional and keep moving.',
-        'p2-list': ['Monthly content planning', '1 filming session (2 hours)', 'Content recording', 'Editing of up to 8 videos', 'Network-optimized videos'], 'p2-btn': 'Get Started →',
+        'p2-tag': 'To start creating consistent content.',
+        'p2-list': ['Planning of 12 contents', 'Content grid creation with: (copy, objective, central idea, posting date, and hashtags)', '1 filming session (1 hour)', 'Content recording', 'Editing up to 7 videos + 1 post', 'Management of 1 social network (Instagram or TikTok)'],
+        'p2-incl': '🔒 Includes',
+        'p2-list-incl': ['2 revisions per video'],
+        'p2-tag2': 'For brands that want to keep moving and look active on social media.',
+        'p2-btn': 'Get Started →',
+
         'p3-badge': 'Complete', 'p3-name': 'Paralelas Control', 'p3-period': '/month',
-        'p3-tag': 'Constant, well-executed presence. For brands that delegate and focus on selling.',
-        'p3-list': ['Monthly content planning', '1 filming session (3 hours)', 'Editing of up to 12 videos', 'Copy writing', 'Scheduling and publishing', 'Management of 1 social network', 'Basic monthly report'], 'p3-btn': 'Get Started →',
+        'p3-tag': 'To maintain presence and delegate content.',
+        'p3-list': ['Planning of 16 contents', 'Content grid creation with: (copy, objective, central idea, posting date, and hashtags)', '1 filming session (2 hours)', 'Content recording', 'Editing up to 11 videos + 5 posts', 'Copywriting', 'Scheduling and publishing', 'Management of Instagram, TikTok, and Facebook', 'Monthly report with suggestions'],
+        'p3-incl': '🔒 Includes',
+        'p3-list-incl': ['2 revisions per video', '1 grid revision'],
+        'p3-tag2': 'For entrepreneurs who want to focus on selling and leave their socials to a studio.',
+        'p3-btn': 'Get Started →',
+
+        'portf-label': '— Portfolio',
+        'portf-title': 'OUR<br>WORK',
+        'portf-desc': 'Content that connects, impacts, and converts ✦',
+
         'testi-label': '— Testimonials', 'testi-title': 'THEY SAY IT,<br>NOT ME',
         't1-text': 'Working with Paralelas was a before-and-after for our brand. Their videos helped us reach more people and boost our visibility on social media.',
         't1-name': 'Client Vibras', 't1-brand': 'Technology',
@@ -1839,16 +2170,18 @@
         't2-name': 'Client Borcelle', 't2-brand': 'Fashion',
         't3-text': 'Collaborating with Paralelas is a pleasure. They make the whole process easy, dynamic, and deliver results that exceed expectations. 100% recommended!',
         't3-name': 'Client Ensigna', 't3-brand': 'Business',
+
         'rates-label': '— Additional Services', 'rates-title': 'INDIVIDUAL<br>RATES',
         'rates-desc': 'Only need one of our services? We can help you with that too.',
         'r1-name': 'Content Grid', 'r2-name': 'Recording per hour', 'r3-name': 'Editing (1 video)', 'r4-name': 'Manage 1 Social Network',
+
         'contact-label': '05 — Contact', 'contact-title': "LET'S WORK<br>TOGETHER",
         'contact-tag': 'Brands in action ✦', 'contact-cta': "✦ Let's Start Now! ✦",
         'footer-text': '© 2024 <span>Paralelas Studio</span> — Ideas that Inspire ✦ Made with ❤️ by Laura &amp; Michelle',
       }
     };
 
-    const LIST_IDS = ['s1-list', 's2-list', 's3-list', 's4-list', 'p1-list', 'p2-list', 'p3-list'];
+    const LIST_IDS = ['s1-list', 's2-list', 's3-list', 's4-list', 'p1-list', 'p2-list', 'p3-list', 'p1-list-incl', 'p2-list-incl', 'p3-list-incl'];
     let currentLang = 'es';
 
     function setLang(lang) {
@@ -1889,6 +2222,193 @@
     const rs = document.createElement('style');
     rs.textContent = '@keyframes ripple{to{transform:scale(20);opacity:0}}';
     document.head.appendChild(rs);
+
+    // Intersection Observer for Reveal
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // --- THREE.JS IMMERSIVE SCENE ---
+    function initThreeScene(containerId, isRight) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+
+      const loader = new THREE.TextureLoader();
+      const brandOrange = 0xF5881F;
+
+      // CAMERA MESH
+      let cameraMesh;
+      loader.load('imagenes/camara.png', (texture) => {
+        texture.anisotropy = 16;
+        const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 0.95 });
+        const geometry = new THREE.PlaneGeometry(4, 4);
+        cameraMesh = new THREE.Mesh(geometry, material);
+        if (isRight) cameraMesh.scale.x = -1;
+        scene.add(cameraMesh);
+      });
+
+      // PLEXUS EFFECT (Dots & Lines)
+      const plexusGroup = new THREE.Group();
+      scene.add(plexusGroup);
+
+      const particlesCount = 80;
+      const positions = new Float32Array(particlesCount * 3);
+      const velocities = [];
+      for (let i = 0; i < particlesCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 8;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 8;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 8;
+        velocities.push(new THREE.Vector3((Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.01));
+      }
+
+      const particlesGeo = new THREE.BufferGeometry();
+      particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const particlesMat = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.8 });
+      const particles = new THREE.Points(particlesGeo, particlesMat);
+      plexusGroup.add(particles);
+
+      // Lines for Plexus
+      const lineMaterial = new THREE.LineBasicMaterial({ color: brandOrange, transparent: true, opacity: 0.2 });
+      let lineMesh;
+
+      // Ambient Glow
+      const ambientLight = new THREE.PointLight(0xffffff, 25, 10);
+      ambientLight.position.set(0, 0, 2);
+      scene.add(ambientLight);
+
+      camera.position.z = 6;
+
+      let active = false;
+      let mouseX = 0, mouseY = 0;
+      const obs = new IntersectionObserver(e => active = e[0].isIntersecting, { threshold: 0.1 });
+      obs.observe(container);
+
+      window.addEventListener('mousemove', e => {
+        mouseX = (e.clientX / window.innerWidth) - 0.5;
+        mouseY = (e.clientY / window.innerHeight) - 0.5;
+      });
+
+      let time = 0;
+      function animate() {
+        if (active) {
+          time += 0.005;
+          const pos = particlesGeo.attributes.position.array;
+
+          // Update Particle Positions
+          for (let i = 0; i < particlesCount; i++) {
+            pos[i * 3] += velocities[i].x;
+            pos[i * 3 + 1] += velocities[i].y;
+            pos[i * 3 + 2] += velocities[i].z;
+
+            // Bounce
+            if (Math.abs(pos[i * 3]) > 4) velocities[i].x *= -1;
+            if (Math.abs(pos[i * 3 + 1]) > 4) velocities[i].y *= -1;
+            if (Math.abs(pos[i * 3 + 2]) > 4) velocities[i].z *= -1;
+          }
+          particlesGeo.attributes.position.needsUpdate = true;
+
+          // Connect nearby dots
+          if (lineMesh) plexusGroup.remove(lineMesh);
+          const linePositions = [];
+          for (let i = 0; i < particlesCount; i++) {
+            for (let j = i + 1; j < particlesCount; j++) {
+              const dx = pos[i * 3] - pos[j * 3];
+              const dy = pos[i * 3 + 1] - pos[j * 3 + 1];
+              const dz = pos[i * 3 + 2] - pos[j * 3 + 2];
+              const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+              if (dist < 2.5) {
+                linePositions.push(pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2]);
+                linePositions.push(pos[j * 3], pos[j * 3 + 1], pos[j * 3 + 2]);
+              }
+            }
+          }
+          const lineGeo = new THREE.BufferGeometry();
+          lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+          lineMesh = new THREE.LineSegments(lineGeo, lineMaterial);
+          plexusGroup.add(lineMesh);
+
+          // Interaction & Parallax
+          if (cameraMesh) {
+            cameraMesh.rotation.y = mouseX * 0.3;
+            cameraMesh.rotation.x = mouseY * 0.3;
+            cameraMesh.position.y = Math.sin(time) * 0.15;
+            cameraMesh.position.x = Math.cos(time * 0.8) * 0.1;
+          }
+          plexusGroup.rotation.y += 0.002;
+          plexusGroup.position.x = mouseX * 2;
+          plexusGroup.position.y = -mouseY * 2;
+
+          renderer.render(scene, camera);
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+    }
+
+    // Smart Video Playback for Carousel
+    function initCarouselVideoController() {
+      const carouselSection = document.getElementById('portafolio');
+      if (!carouselSection) return;
+
+      const videos = carouselSection.querySelectorAll('video');
+
+      const videoObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            videos.forEach(v => {
+              v.play().catch(e => console.log("Autoplay blocked or already playing"));
+            });
+          } else {
+            videos.forEach(v => v.pause());
+          }
+        });
+      }, { threshold: 0.1 });
+
+      videoObs.observe(carouselSection);
+    }
+
+    // Initialize everything on load
+    window.addEventListener('load', () => {
+      initThreeScene('three-l', false);
+      initThreeScene('three-r', true);
+      initCarouselVideoController();
+
+      // Mobile Autoplay Kickstart: Try playing all videos on first interaction
+      const kickstartVideos = () => {
+        document.querySelectorAll('video').forEach(v => {
+          v.play().catch(() => { });
+        });
+        document.removeEventListener('touchstart', kickstartVideos);
+        document.removeEventListener('click', kickstartVideos);
+      };
+      document.addEventListener('touchstart', kickstartVideos);
+      document.addEventListener('click', kickstartVideos);
+    });
   </script>
 </body>
 
