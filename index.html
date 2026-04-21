@@ -9,6 +9,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Bebas+Neue&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
   <style>
     :root {
@@ -17,7 +18,7 @@
       --orange: #F5881F;
       --sky: #A8C8E8;
       --cream: #F5F0E8;
-      --dark: #1A0A0D;
+      --dark: #7b0117;
       --white: #FFFFFF;
     }
 
@@ -384,6 +385,21 @@
 
     .btn-primary:hover::before {
       left: 100%;
+    }
+
+    @keyframes escapeScreen {
+      0%, 100% { 
+        transform: scale(1) translateY(0); 
+        box-shadow: 0 4px 20px rgba(192, 24, 42, 0.28); 
+      }
+      50% { 
+        transform: scale(1.2) translateY(-25px); 
+        box-shadow: 0 40px 80px rgba(192, 24, 42, 0.5); 
+      }
+    }
+
+    .btn-jump {
+      animation: escapeScreen 1.8s ease-in-out infinite;
     }
 
     .btn-secondary {
@@ -1199,30 +1215,112 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 1.3rem;
-      margin-bottom: 2.5rem;
+      gap: 2.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .social-chase-wrapper {
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    @keyframes dinoJump {
+      0% {
+        transform: translateY(0);
+      }
+
+      40% {
+        transform: translateY(-120px) rotate(15deg);
+      }
+
+      70% {
+        transform: translateY(0);
+      }
+
+      85% {
+        transform: translateY(-15px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .social-chase-wrapper.jumping {
+      animation: dinoJump 0.8s cubic-bezier(0.45, 0.05, 0.55, 0.95);
     }
 
     .contact-link {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: white;
-      padding: 0.75rem 1.4rem;
-      border-radius: 50px;
+      border-radius: 50%;
       text-decoration: none;
-      font-size: 0.87rem;
-      font-weight: 500;
-      transition: all 0.3s;
+      font-size: 1.8rem;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      will-change: transform;
+      animation: iconFloat 5s ease-in-out infinite;
     }
 
-    .contact-link:hover {
-      background: white;
-      color: var(--crimson);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    .contact-link:nth-child(2) {
+      animation-delay: 0.6s;
+    }
+
+    .contact-link:nth-child(3) {
+      animation-delay: 1.2s;
+    }
+
+    @keyframes iconFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    /* Instagram Logo Hover */
+    .contact-link.ig:hover {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      border-color: transparent;
+      box-shadow: 0 15px 35px rgba(214, 36, 159, 0.4);
+      transform: scale(1.2) translateY(-10px) !important;
+    }
+
+    /* TikTok Logo Hover */
+    .contact-link.tt:hover {
+      background: #000;
+      border-color: #ff0050;
+      box-shadow: -4px -4px 0 #25f4ee, 4px 4px 0 #ff0050, 0 15px 35px rgba(255, 255, 255, 0.1);
+      transform: scale(1.2) translateY(-10px) !important;
+    }
+
+    /* Mail Logo Hover */
+    .contact-link.mail:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+      box-shadow: 0 15px 35px rgba(245, 136, 31, 0.4);
+      transform: scale(1.2) translateY(-10px) !important;
+    }
+
+    .contact-link i {
+      transition: transform 0.4s ease;
+    }
+
+    .contact-link:hover i {
+      transform: scale(1.1) rotate(5deg);
     }
 
     .contact-cta {
@@ -1309,8 +1407,8 @@
 
     /* FOOTER */
     footer {
-      background: #0D0508;
-      color: rgba(255, 255, 255, 0.45);
+      background: #e8e1d5;
+      color: rgba(26, 10, 13, 0.65);
       text-align: center;
       padding: 3rem 1.8rem;
       font-size: 0.78rem;
@@ -1332,12 +1430,14 @@
     }
 
     footer span {
-      color: var(--orange);
+      color: var(--crimson);
+      font-weight: 700;
+      letter-spacing: 0.05em;
     }
 
     /* RATES SECTION - REDESIGN */
     .rates {
-      background: #0D0508;
+      background: #302b2d;
       color: var(--white);
       position: relative;
       overflow: hidden;
@@ -1364,68 +1464,65 @@
     }
 
     .rates .section-title {
-      color: var(--cream);
+      color: var(--crimson);
+    }
+
+    .rates-header {
+      text-align: center;
+      margin-bottom: 5rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .rates-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
       position: relative;
       z-index: 1;
     }
 
     .rate-item {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #e8e1d5;
+      border: 3px solid rgba(26, 10, 13, 0.15);
       border-radius: 24px;
-      padding: 2.5rem 1.8rem;
-      text-align: center;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 1.8rem 1.5rem;
+      transition: all 0.3s ease;
       position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .rate-item::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(192, 24, 42, 0.1), transparent);
-      opacity: 0;
-      transition: opacity 0.4s;
+      align-items: flex-start;
+      gap: 0.5rem;
+      color: var(--dark);
     }
 
     .rate-item:hover {
-      background: rgba(255, 255, 255, 0.06);
       border-color: var(--orange);
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .rate-item:hover::before {
-      opacity: 1;
+      box-shadow: 0 0 25px rgba(245, 136, 31, 0.3), 0 15px 40px rgba(0, 0, 0, 0.1);
     }
 
     .rate-icon {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      background: rgba(245, 136, 31, 0.1);
-      width: 70px;
-      height: 70px;
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      background: rgba(26, 10, 13, 0.04);
+      width: 50px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
-      transition: transform 0.5s ease;
+      border-radius: 12px;
+      transition: background 0.4s;
+      align-self: flex-start;
+      position: relative;
+      z-index: 3;
     }
 
     .rate-item:hover .rate-icon {
-      transform: rotateY(360deg);
-      background: rgba(245, 136, 31, 0.2);
+      background: rgba(245, 136, 31, 0.1);
+      color: var(--orange);
     }
 
     .rate-service {
@@ -1434,16 +1531,61 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--crimson);
       margin-bottom: 0.5rem;
     }
 
     .rate-price {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.8rem;
-      color: var(--orange);
+      font-size: 2rem;
+      color: var(--dark);
       line-height: 1;
-      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 1rem;
+    }
+
+    .rate-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem 0;
+      width: 100%;
+    }
+
+    .rate-list li {
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: rgba(26, 10, 13, 0.75);
+      margin-bottom: 0.4rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .rate-item:hover .rate-list li {
+      color: var(--dark);
+    }
+
+    .rate-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--orange);
+      font-weight: 700;
+    }
+
+    .rate-tagline {
+      font-size: 0.72rem;
+      font-style: italic;
+      line-height: 1.3;
+      color: rgba(26, 10, 13, 0.5);
+      border-top: 1px solid rgba(26, 10, 13, 0.1);
+      padding-top: 0.8rem;
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .rate-item:hover .rate-tagline {
+      color: var(--crimson);
+      opacity: 0.8;
+      border-color: rgba(192, 24, 42, 0.2);
     }
 
     /* SCROLL REVEAL SYSTEM */
@@ -1485,18 +1627,23 @@
       }
 
       section {
-        padding: 4rem 1.4rem;
+        padding: 3.5rem 1.2rem;
       }
 
       .hero {
         grid-template-columns: 1fr;
-        padding: 7rem 1.4rem 3rem;
+        padding: 6.5rem 1.2rem 2.5rem;
+      }
+
+      .hero-title {
+        font-size: clamp(3rem, 12vw, 4.5rem);
       }
 
       .hero-r {
         display: block;
         width: 100%;
         margin-top: 2rem;
+        height: 50vh;
       }
 
       .about-inner {
@@ -1506,8 +1653,8 @@
       .about-photo-stack {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
-        margin-top: 2rem;
+        gap: 1.2rem;
+        margin-top: 1.5rem;
       }
 
       .packages-grid,
@@ -1520,25 +1667,59 @@
       }
 
       .rates-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr; /* Stacked for full visibility on mobile */
+        gap: 1.5rem;
+      }
+      
+      .rates-header {
+        margin-bottom: 2.5rem;
       }
     }
 
     @media (max-width: 768px) {
-      .hero-video video {
-        width: 100%;
-        height: 60vh;
+      .hero-title {
+        font-size: 3.2rem;
+      }
+
+      .hero-desc {
+        font-size: 0.9rem;
       }
 
       /* Carousel Mobile Restoration */
       .carousel-card {
-        width: 260px !important;
-        height: 320px !important;
+        width: 240px !important; /* Slightly narrower to fit smaller screens */
+        height: 380px !important; /* Taller for mobile cinematic look */
       }
 
       .carousel-outer::before,
       .carousel-outer::after {
-        width: 120px !important;
+        width: 60px !important; /* Smaller overlays to show more video */
+      }
+
+      @keyframes escapeScreen {
+        0%, 100% { 
+          transform: scale(1) translateY(0); 
+          box-shadow: 0 4px 15px rgba(192, 24, 42, 0.28); 
+        }
+        50% { 
+          transform: scale(1.1) translateY(-15px); 
+          box-shadow: 0 25px 50px rgba(192, 24, 42, 0.4); 
+        }
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.6rem;
+      }
+      
+      .nav-logo-img {
+        height: 35px; /* Compact logo for small headers */
+      }
+      
+      .lang-btn {
+        padding: 6px 12px;
+        font-size: 11px;
       }
     }
   </style>
@@ -1951,38 +2132,47 @@
     </div>
 
     <div style="text-align:center;margin-top:3rem;padding:0 3rem;">
-      <a href="#contacto" class="btn-primary" style="display:inline-flex;">✦ Trabajemos Juntas</a>
+      <a href="#contacto" class="btn-primary btn-jump" style="display:inline-flex;">✦ Click para nuestro portafolio</a>
     </div>
   </section>
 
   <!-- RATES -->
   <section class="rates" id="tarifas">
-    <div class="rates-header reveal">
+    <div class="rates-header reveal" style="text-align: center; margin-bottom: 4rem;">
       <p class="section-label" id="rates-label" style="color:var(--orange);">— Servicios Adicionales</p>
-      <h2 class="section-title" id="rates-title">TARIFAS<br>INDIVIDUALES</h2>
-      <p class="section-desc" id="rates-desc" style="color: rgba(255,255,255,0.6);">¿Solo necesitas uno de nuestros
-        servicios? También podemos ayudarte.</p>
+      <h2 class="section-title" id="rates-title">✦ SERVICIOS<br>ADICIONALES ✦</h2>
+      <p class="section-desc" id="rates-desc" style="color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto;">Soluciones digitales para complementar el crecimiento de tu marca.</p>
     </div>
     <div class="rates-grid">
-      <div class="rate-item reveal reveal-delay-1">
-        <div class="rate-icon">📅</div>
-        <div class="rate-service" id="r1-name">Parrilla de Contenido</div>
-        <div class="rate-price">$450.000</div>
+      <div class="rate-item reveal">
+        <div class="rate-icon">🌐</div>
+        <div class="rate-service" id="r1-name">Landing Page</div>
+        <div class="rate-price" id="r1-price">Desde $600.000 COP</div>
+        <p class="rate-incl-label" id="r1-incl-label" style="font-weight:700; margin-bottom:0.8rem; font-size:0.85rem;">Incluye:</p>
+        <ul class="rate-list" id="r1-list">
+          <!-- JS maps items here -->
+        </ul>
+        <div class="rate-tagline" id="r1-tagline">Ideal para campañas, servicios específicos o captación de clientes.</div>
       </div>
-      <div class="rate-item reveal reveal-delay-2">
-        <div class="rate-icon">🎬</div>
-        <div class="rate-service" id="r2-name">Grabación por hora</div>
-        <div class="rate-price">$300.000</div>
+      <div class="rate-item reveal">
+        <div class="rate-icon">💻</div>
+        <div class="rate-service" id="r2-name">Página Web</div>
+        <div class="rate-price" id="r2-price">Desde $1.200.000 COP</div>
+        <p class="rate-incl-label" id="r2-incl-label" style="font-weight:700; margin-bottom:0.8rem; font-size:0.85rem;">Incluye:</p>
+        <ul class="rate-list" id="r2-list">
+          <!-- JS maps items here -->
+        </ul>
+        <div class="rate-tagline" id="r2-tagline">Para marcas que quieren presencia digital profesional.</div>
       </div>
-      <div class="rate-item reveal reveal-delay-3">
-        <div class="rate-icon">✂️</div>
-        <div class="rate-service" id="r3-name">Edición (1 video)</div>
-        <div class="rate-price">$100.000</div>
-      </div>
-      <div class="rate-item reveal reveal-delay-4">
-        <div class="rate-icon">📊</div>
-        <div class="rate-service" id="r4-name">Manejo 1 Red Social</div>
-        <div class="rate-price">$500.000</div>
+      <div class="rate-item reveal">
+        <div class="rate-icon">⚙️</div>
+        <div class="rate-service" id="r3-name">Automatizaciones</div>
+        <div class="rate-price" id="r3-price">Desde $300.000 COP</div>
+        <p class="rate-incl-label" id="r3-incl-label" style="font-weight:700; margin-bottom:0.8rem; font-size:0.85rem;">Incluye:</p>
+        <ul class="rate-list" id="r3-list">
+          <!-- JS maps items here -->
+        </ul>
+        <div class="rate-tagline" id="r3-tagline">Ahorra tiempo y mejora la atención al cliente.</div>
       </div>
     </div>
   </section>
@@ -1995,19 +2185,32 @@
       <p class="section-label" style="color:rgba(255,255,255,0.6);" id="contact-label">05 — Contacto</p>
       <h2 class="section-title" id="contact-title">TRABAJEMOS<br>JUNTOS</h2>
       <p class="contact-tagline" id="contact-tag">Marcas en acción ✦</p>
-      <div class="contact-links">
-        <a href="tel:3162367425" class="contact-link">📱 3162367425</a>
-        <a href="mailto:paralelasstudioco@gmail.com" class="contact-link">✉️ paralelasstudioco@gmail.com</a>
-        <a href="https://instagram.com/Paralelastudioco" target="_blank" class="contact-link">📸 @Paralelastudioco</a>
+      <div class="contact-links" id="chase-area">
+        <div class="social-chase-wrapper">
+          <a href="mailto:paralelas.studio18@gmail.com" class="contact-link mail">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+        <div class="social-chase-wrapper">
+          <a href="https://www.instagram.com/paralelas.studio18?igsh=MTlsaTZpN3ExbWl1MA%3D%3D&utm_source=qr"
+            target="_blank" class="contact-link ig">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+        <div class="social-chase-wrapper">
+          <a href="https://www.tiktok.com/@paralelas.studio18?lang=es-419" target="_blank" class="contact-link tt">
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
       </div>
-      <a href="mailto:paralelasstudioco@gmail.com" class="contact-cta" id="contact-cta">✦ ¡Empecemos Ahora! ✦</a>
+      <a href="mailto:paralelas.studio18@gmail.com" class="contact-cta" id="contact-cta">✦ ¡Empecemos Ahora! ✦</a>
     </div>
   </section>
 
   <footer>
     <img src="imagenes/Logo.png" alt="Paralelas Studio Logo" class="footer-logo-img"
       onclick="window.scrollTo({top:0, behavior:'smooth'})">
-    <p id="footer-text">© 2024 <span>Paralelas Studio</span> — Ideas que Inspiran ✦ Hecho con ❤️ por Laura &amp;
+    <p id="footer-text">© 2026 <span>Paralelas Studio</span> — Ideas que Inspiran ✦ Hecho con ❤️ por Laura &amp;
       Michelle</p>
   </footer>
 
@@ -2088,13 +2291,23 @@
         't3-text': 'Colaborar con Paralelas es un placer. Hacen que todo el proceso sea fácil, dinámico y con resultados que superan expectativas. ¡100% recomendadas!',
         't3-name': 'Cliente Ensigna', 't3-brand': 'Negocios',
 
-        'rates-label': '— Servicios Adicionales', 'rates-title': 'TARIFAS<br>INDIVIDUALES',
-        'rates-desc': '¿Solo necesitas uno de nuestros servicios? También podemos ayudarte.',
-        'r1-name': 'Parrilla de Contenido', 'r2-name': 'Grabación por hora', 'r3-name': 'Edición (1 video)', 'r4-name': 'Manejo 1 Red Social',
+        'rates-label': '— Servicios Adicionales', 'rates-title': '✦ SERVICIOS<br>ADICIONALES ✦',
+        'rates-desc': 'Soluciones digitales para complementar el crecimiento de tu marca.',
+        'r1-name': 'Landing Page', 'r1-price': 'Desde $600.000 COP', 'r1-incl-label': 'Incluye:',
+        'r1-list': ['Levantamiento de requerimientos (reunión inicial con el cliente)', 'Diseño UI/UX enfocado en conversión', 'Desarrollo responsive (mobile-first)', 'Integración con formularios o WhatsApp', 'Dominio y hosting no incluidos (adquiridos por el cliente)'],
+        'r1-tagline': 'Ideal para campañas, servicios específicos o captación de clientes.',
+        
+        'r2-name': 'Página Web', 'r2-price': 'Desde $1.200.000 COP', 'r2-incl-label': 'Incluye:',
+        'r2-list': ['Levantamiento de requerimientos y arquitectura del sitio', 'Diseño y desarrollo web personalizado', 'Estructura multi-sección (home, servicios, contacto, etc.)', 'Optimización SEO básica (etiquetas, velocidad, estructura)', 'Dominio y hosting no incluidos (adquiridos por el cliente)'],
+        'r2-tagline': 'Para marcas que quieren presencia digital profesional.',
+        
+        'r3-name': 'Automatizaciones', 'r3-price': 'Desde $300.000 COP', 'r3-incl-label': 'Incluye:',
+        'r3-list': ['Análisis de procesos y definición de flujos (reunión inicial)', 'Configuración de automatizaciones en CRM o WhatsApp', 'Creación de embudos y secuencias de seguimiento', 'Integración con herramientas externas (si aplica)'],
+        'r3-tagline': 'Ahorra tiempo y mejora la atención al cliente.',
 
         'contact-label': '05 — Contacto', 'contact-title': 'TRABAJEMOS<br>JUNTOS',
         'contact-tag': 'Marcas en acción ✦', 'contact-cta': '✦ ¡Empecemos Ahora! ✦',
-        'footer-text': '© 2024 <span>Paralelas Studio</span> — Ideas que Inspiran ✦ Hecho con ❤️ por Laura &amp; Michelle',
+        'footer-text': '© 2026 <span>Paralelas Studio</span> — Ideas que Inspiran ✦ Hecho con ❤️ por Laura &amp; Michelle',
       },
       en: {
         docTitle: 'Paralelas Studio | UGC & Content for Brands',
@@ -2171,18 +2384,28 @@
         't3-text': 'Collaborating with Paralelas is a pleasure. They make the whole process easy, dynamic, and deliver results that exceed expectations. 100% recommended!',
         't3-name': 'Client Ensigna', 't3-brand': 'Business',
 
-        'rates-label': '— Additional Services', 'rates-title': 'INDIVIDUAL<br>RATES',
-        'rates-desc': 'Only need one of our services? We can help you with that too.',
-        'r1-name': 'Content Grid', 'r2-name': 'Recording per hour', 'r3-name': 'Editing (1 video)', 'r4-name': 'Manage 1 Social Network',
+        'rates-label': '— Additional Services', 'rates-title': '✦ ADDITIONAL<br>SERVICES ✦',
+        'rates-desc': 'Digital solutions to complement your brand growth.',
+        'r1-name': 'Landing Page', 'r1-price': 'From $600.000 COP', 'r1-incl-label': 'Includes:',
+        'r1-list': ['Requirements gathering (initial meeting with the client)', 'UI/UX design focused on conversion', 'Responsive development (mobile-first)', 'Integration with forms or WhatsApp', 'Domain and hosting not included (purchased by the client)'],
+        'r1-tagline': 'Ideal for campaigns, specific services or lead generation.',
+        
+        'r2-name': 'Website', 'r2-price': 'From $1.200.000 COP', 'r2-incl-label': 'Includes:',
+        'r2-list': ['Requirements gathering and site architecture', 'Custom web design and development', 'Multi-section structure (home, services, contact, etc.)', 'Basic SEO optimization (meta tags, speed, structure)', 'Domain and hosting not included (purchased by the client)'],
+        'r2-tagline': 'For brands that want a professional digital presence.',
+        
+        'r3-name': 'Automations', 'r3-price': 'From $300.000 COP', 'r3-incl-label': 'Includes:',
+        'r3-list': ['Process analysis and flow definition (initial meeting)', 'Automation configuration in CRM or WhatsApp', 'Creation of funnels and follow-up sequences', 'Integration with external tools (if applicable)'],
+        'r3-tagline': 'Save time and improve customer service.',
 
         'contact-label': '05 — Contact', 'contact-title': "LET'S WORK<br>TOGETHER",
         'contact-tag': 'Brands in action ✦', 'contact-cta': "✦ Let's Start Now! ✦",
-        'footer-text': '© 2024 <span>Paralelas Studio</span> — Ideas that Inspire ✦ Made with ❤️ by Laura &amp; Michelle',
+        'footer-text': '© 2026 <span>Paralelas Studio</span> — Ideas that Inspire ✦ Made with ❤️ by Laura &amp; Michelle',
       }
     };
 
-    const LIST_IDS = ['s1-list', 's2-list', 's3-list', 's4-list', 'p1-list', 'p2-list', 'p3-list', 'p1-list-incl', 'p2-list-incl', 'p3-list-incl'];
-    let currentLang = 'es';
+    const LIST_IDS = ['s1-list', 's2-list', 's3-list', 's4-list', 'p1-list', 'p2-list', 'p3-list', 'p1-list-incl', 'p2-list-incl', 'p3-list-incl', 'r1-list', 'r2-list', 'r3-list'];
+    let currentLang = '';
 
     function setLang(lang) {
       if (lang === currentLang) return;
@@ -2392,11 +2615,43 @@
       videoObs.observe(carouselSection);
     }
 
+    // Social Jump Game (Dino style)
+    function initSocialJumpGame() {
+      if (window.innerWidth < 1024) return;
+
+      const wrappers = document.querySelectorAll('.social-chase-wrapper');
+
+      document.addEventListener('mousemove', (e) => {
+        wrappers.forEach(wrapper => {
+          // If already jumping, don't trigger again
+          if (wrapper.classList.contains('jumping')) return;
+
+          const rect = wrapper.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+
+          const distance = Math.hypot(e.clientX - centerX, e.clientY - centerY);
+
+          // Trigger jump if mouse is within 100px
+          if (distance < 100) {
+            wrapper.classList.add('jumping');
+
+            // Remove class after animation finishes (0.8s as defined in CSS)
+            setTimeout(() => {
+              wrapper.classList.remove('jumping');
+            }, 800);
+          }
+        });
+      });
+    }
+
     // Initialize everything on load
     window.addEventListener('load', () => {
       initThreeScene('three-l', false);
       initThreeScene('three-r', true);
       initCarouselVideoController();
+      initSocialJumpGame();
+      setLang('es');
 
       // Mobile Autoplay Kickstart: Try playing all videos on first interaction
       const kickstartVideos = () => {
