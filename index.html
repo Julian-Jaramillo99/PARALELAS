@@ -388,13 +388,16 @@
     }
 
     @keyframes escapeScreen {
-      0%, 100% { 
-        transform: scale(1) translateY(0); 
-        box-shadow: 0 4px 20px rgba(192, 24, 42, 0.28); 
+
+      0%,
+      100% {
+        transform: scale(1) translateY(0);
+        box-shadow: 0 4px 20px rgba(192, 24, 42, 0.28);
       }
-      50% { 
-        transform: scale(1.2) translateY(-25px); 
-        box-shadow: 0 40px 80px rgba(192, 24, 42, 0.5); 
+
+      50% {
+        transform: scale(1.2) translateY(-25px);
+        box-shadow: 0 40px 80px rgba(192, 24, 42, 0.5);
       }
     }
 
@@ -1648,13 +1651,31 @@
 
       .about-inner {
         grid-template-columns: 1fr;
+        gap: 2rem;
       }
 
       .about-photo-stack {
         display: flex;
         flex-direction: column;
-        gap: 1.2rem;
-        margin-top: 1.5rem;
+        gap: 1.5rem;
+        height: auto;
+        margin-top: 2rem;
+      }
+
+      .photo-card {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 3/4;
+        animation: none !important;
+        margin-bottom: 0.5rem;
+      }
+
+      .about-highlights {
+        grid-template-columns: 1fr;
       }
 
       .packages-grid,
@@ -1667,10 +1688,11 @@
       }
 
       .rates-grid {
-        grid-template-columns: 1fr; /* Stacked for full visibility on mobile */
+        grid-template-columns: 1fr;
+        /* Stacked for full visibility on mobile */
         gap: 1.5rem;
       }
-      
+
       .rates-header {
         margin-bottom: 2.5rem;
       }
@@ -1687,23 +1709,29 @@
 
       /* Carousel Mobile Restoration */
       .carousel-card {
-        width: 240px !important; /* Slightly narrower to fit smaller screens */
-        height: 380px !important; /* Taller for mobile cinematic look */
+        width: 240px !important;
+        /* Slightly narrower to fit smaller screens */
+        height: 380px !important;
+        /* Taller for mobile cinematic look */
       }
 
       .carousel-outer::before,
       .carousel-outer::after {
-        width: 60px !important; /* Smaller overlays to show more video */
+        width: 60px !important;
+        /* Smaller overlays to show more video */
       }
 
       @keyframes escapeScreen {
-        0%, 100% { 
-          transform: scale(1) translateY(0); 
-          box-shadow: 0 4px 15px rgba(192, 24, 42, 0.28); 
+
+        0%,
+        100% {
+          transform: scale(1) translateY(0);
+          box-shadow: 0 4px 15px rgba(192, 24, 42, 0.28);
         }
-        50% { 
-          transform: scale(1.1) translateY(-15px); 
-          box-shadow: 0 25px 50px rgba(192, 24, 42, 0.4); 
+
+        50% {
+          transform: scale(1.1) translateY(-15px);
+          box-shadow: 0 25px 50px rgba(192, 24, 42, 0.4);
         }
       }
     }
@@ -1712,11 +1740,12 @@
       .hero-title {
         font-size: 2.6rem;
       }
-      
+
       .nav-logo-img {
-        height: 35px; /* Compact logo for small headers */
+        height: 35px;
+        /* Compact logo for small headers */
       }
-      
+
       .lang-btn {
         padding: 6px 12px;
         font-size: 11px;
@@ -2141,24 +2170,28 @@
     <div class="rates-header reveal" style="text-align: center; margin-bottom: 4rem;">
       <p class="section-label" id="rates-label" style="color:var(--orange);">— Servicios Adicionales</p>
       <h2 class="section-title" id="rates-title">✦ SERVICIOS<br>ADICIONALES ✦</h2>
-      <p class="section-desc" id="rates-desc" style="color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto;">Soluciones digitales para complementar el crecimiento de tu marca.</p>
+      <p class="section-desc" id="rates-desc" style="color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto;">
+        Soluciones digitales para complementar el crecimiento de tu marca.</p>
     </div>
     <div class="rates-grid">
       <div class="rate-item reveal">
         <div class="rate-icon">🌐</div>
         <div class="rate-service" id="r1-name">Landing Page</div>
         <div class="rate-price" id="r1-price">Desde $600.000 COP</div>
-        <p class="rate-incl-label" id="r1-incl-label" style="font-weight:700; margin-bottom:0.8rem; font-size:0.85rem;">Incluye:</p>
+        <p class="rate-incl-label" id="r1-incl-label" style="font-weight:700; margin-bottom:0.8rem; font-size:0.85rem;">
+          Incluye:</p>
         <ul class="rate-list" id="r1-list">
           <!-- JS maps items here -->
         </ul>
-        <div class="rate-tagline" id="r1-tagline">Ideal para campañas, servicios específicos o captación de clientes.</div>
+        <div class="rate-tagline" id="r1-tagline">Ideal para campañas, servicios específicos o captación de clientes.
+        </div>
       </div>
       <div class="rate-item reveal">
         <div class="rate-icon">💻</div>
         <div class="rate-service" id="r2-name">Página Web</div>
         <div class="rate-price" id="r2-price">Desde $1.200.000 COP</div>
-        <p class="rate-incl-label" id="r2-incl-label" style="font-weight:700; margin-bottom:0.8rem; font-size:0.85rem;">Incluye:</p>
+        <p class="rate-incl-label" id="r2-incl-label" style="font-weight:700; margin-bottom:0.8rem; font-size:0.85rem;">
+          Incluye:</p>
         <ul class="rate-list" id="r2-list">
           <!-- JS maps items here -->
         </ul>
@@ -2168,7 +2201,8 @@
         <div class="rate-icon">⚙️</div>
         <div class="rate-service" id="r3-name">Automatizaciones</div>
         <div class="rate-price" id="r3-price">Desde $300.000 COP</div>
-        <p class="rate-incl-label" id="r3-incl-label" style="font-weight:700; margin-bottom:0.8rem; font-size:0.85rem;">Incluye:</p>
+        <p class="rate-incl-label" id="r3-incl-label" style="font-weight:700; margin-bottom:0.8rem; font-size:0.85rem;">
+          Incluye:</p>
         <ul class="rate-list" id="r3-list">
           <!-- JS maps items here -->
         </ul>
@@ -2296,11 +2330,11 @@
         'r1-name': 'Landing Page', 'r1-price': 'Desde $600.000 COP', 'r1-incl-label': 'Incluye:',
         'r1-list': ['Levantamiento de requerimientos (reunión inicial con el cliente)', 'Diseño UI/UX enfocado en conversión', 'Desarrollo responsive (mobile-first)', 'Integración con formularios o WhatsApp', 'Dominio y hosting no incluidos (adquiridos por el cliente)'],
         'r1-tagline': 'Ideal para campañas, servicios específicos o captación de clientes.',
-        
+
         'r2-name': 'Página Web', 'r2-price': 'Desde $1.200.000 COP', 'r2-incl-label': 'Incluye:',
         'r2-list': ['Levantamiento de requerimientos y arquitectura del sitio', 'Diseño y desarrollo web personalizado', 'Estructura multi-sección (home, servicios, contacto, etc.)', 'Optimización SEO básica (etiquetas, velocidad, estructura)', 'Dominio y hosting no incluidos (adquiridos por el cliente)'],
         'r2-tagline': 'Para marcas que quieren presencia digital profesional.',
-        
+
         'r3-name': 'Automatizaciones', 'r3-price': 'Desde $300.000 COP', 'r3-incl-label': 'Incluye:',
         'r3-list': ['Análisis de procesos y definición de flujos (reunión inicial)', 'Configuración de automatizaciones en CRM o WhatsApp', 'Creación de embudos y secuencias de seguimiento', 'Integración con herramientas externas (si aplica)'],
         'r3-tagline': 'Ahorra tiempo y mejora la atención al cliente.',
@@ -2389,11 +2423,11 @@
         'r1-name': 'Landing Page', 'r1-price': 'From $600.000 COP', 'r1-incl-label': 'Includes:',
         'r1-list': ['Requirements gathering (initial meeting with the client)', 'UI/UX design focused on conversion', 'Responsive development (mobile-first)', 'Integration with forms or WhatsApp', 'Domain and hosting not included (purchased by the client)'],
         'r1-tagline': 'Ideal for campaigns, specific services or lead generation.',
-        
+
         'r2-name': 'Website', 'r2-price': 'From $1.200.000 COP', 'r2-incl-label': 'Includes:',
         'r2-list': ['Requirements gathering and site architecture', 'Custom web design and development', 'Multi-section structure (home, services, contact, etc.)', 'Basic SEO optimization (meta tags, speed, structure)', 'Domain and hosting not included (purchased by the client)'],
         'r2-tagline': 'For brands that want a professional digital presence.',
-        
+
         'r3-name': 'Automations', 'r3-price': 'From $300.000 COP', 'r3-incl-label': 'Includes:',
         'r3-list': ['Process analysis and flow definition (initial meeting)', 'Automation configuration in CRM or WhatsApp', 'Creation of funnels and follow-up sequences', 'Integration with external tools (if applicable)'],
         'r3-tagline': 'Save time and improve customer service.',
